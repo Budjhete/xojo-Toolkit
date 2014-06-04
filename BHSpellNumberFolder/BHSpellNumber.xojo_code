@@ -314,7 +314,7 @@ Protected Class BHSpellNumber
 
 	#tag Constant, Name = k_Thousand_, Type = String, Dynamic = True, Default = \" Thousand ", Scope = Public
 		#Tag Instance, Platform = Any, Language = en, Definition  = \" Thousand "
-		#Tag Instance, Platform = Any, Language = fr, Definition  = \" Milles "
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \" Mille "
 	#tag EndConstant
 
 	#tag Constant, Name = k_Trillion_, Type = String, Dynamic = True, Default = \" Trillion ", Scope = Public
