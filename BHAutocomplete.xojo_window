@@ -1,10 +1,10 @@
 #tag Window
-Begin BHContainerControl BHAutocomplete
+Begin BHContainerControl BHAutocomplete Implements View
    AcceptFocus     =   False
    AcceptTabs      =   True
    AutoDeactivate  =   True
-   BackColor       =   &cFFFFFF00
-   Backdrop        =   0
+   BackColor       =   &cFF003E00
+   Backdrop        =   1027476333
    Compatibility   =   ""
    Enabled         =   True
    EraseBackground =   True
@@ -26,7 +26,7 @@ Begin BHContainerControl BHAutocomplete
    Visible         =   False
    Width           =   192
    Begin BHListBox gOptions
-      AlternateRowColor=   &cEDF3FE00
+      AlternateRowColor=   &cE8EEF900
       AlternateRows   =   True
       AutoDeactivate  =   True
       AutoHideScrollbars=   True
@@ -49,7 +49,7 @@ Begin BHContainerControl BHAutocomplete
       GridLinesVertical=   0
       HasHeading      =   False
       HeadingIndex    =   -1
-      Height          =   426
+      Height          =   424
       HelpTag         =   ""
       Hierarchical    =   False
       Index           =   -2147483648
@@ -58,7 +58,7 @@ Begin BHContainerControl BHAutocomplete
       Italic          =   False
       LastColumn      =   -1
       LastRow         =   -1
-      Left            =   0
+      Left            =   1
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
@@ -79,11 +79,11 @@ Begin BHContainerControl BHAutocomplete
       TextFont        =   "SmallSystem"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   0
+      Top             =   1
       Underline       =   False
       UseFocusRing    =   False
       Visible         =   True
-      Width           =   192
+      Width           =   190
       _ScrollOffset   =   0
       _ScrollWidth    =   -1
    End
@@ -119,6 +119,13 @@ End
 	#tag EndEvent
 
 	#tag Event
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		  g.ForeColor = &c5B5B5B00
+		  g.DrawRect(0, 0, g.Width, g.Height)
+		End Sub
+	#tag EndEvent
+
+	#tag Event
 		Sub Show()
 		  focusWatcher.Mode = Timer.ModeMultiple
 		  focusWatcher.Period = 100
@@ -145,6 +152,7 @@ End
 		    TextField.BackColor = mInitialBackColor
 		  End If
 		  
+		  System.DebugLog "nombre d'item dans l'autocomplete : " + str(gOptions.LastIndex)
 		End Sub
 	#tag EndMethod
 
@@ -270,8 +278,10 @@ End
 		    Me.Height = gOptions.DefaultRowHeight * Floor((Me.Window.Height - Me.Top) / gOptions.DefaultRowHeight)
 		  Else
 		    // Il y a suffisament de place pour tout afficher :)
-		    Me.Height = gOptions.DefaultRowHeight * gOptions.ListCount
+		    Me.Height = gOptions.DefaultRowHeight * gOptions.ListCount + 5 // + 5 pour pas qui ait une ligne orpheline...
 		  End If
+		  
+		  gOptions.ListIndex = 0
 		  
 		  Check
 		End Sub
