@@ -9,7 +9,7 @@ Begin BHWindow BHReportXMLViewer
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   534
+   Height          =   588
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -26,191 +26,6 @@ Begin BHWindow BHReportXMLViewer
    Title           =   "#kApercu"
    Visible         =   True
    Width           =   882
-   Begin BHViewerXSL cReport
-      AcceptFocus     =   False
-      AcceptTabs      =   False
-      AutoDeactivate  =   True
-      BackColor       =   &cFFFFFF00
-      Backdrop        =   0
-      Enabled         =   False
-      EraseBackground =   True
-      HasBackColor    =   False
-      Height          =   483
-      HelpTag         =   ""
-      index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   0
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      Scope           =   0
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   0
-      Transparent     =   True
-      Untitled        =   0
-      UseFocusRing    =   True
-      Visible         =   True
-      Width           =   882
-   End
-   Begin PushButton pbImrimper
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   False
-      Caption         =   "#kImprimer"
-      Default         =   True
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   747
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   6
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   497
-      Underline       =   False
-      Visible         =   True
-      Width           =   115
-   End
-   Begin PushButton pbFermer
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   True
-      Caption         =   "#kFermer"
-      Default         =   False
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   7
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   497
-      Underline       =   False
-      Visible         =   True
-      Width           =   115
-   End
-   Begin PushButton pbExporterHTML
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   True
-      Caption         =   "HTML"
-      Default         =   False
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   "kExporter en format HTML"
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   547
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   497
-      Underline       =   False
-      Visible         =   True
-      Width           =   61
-   End
-   Begin PushButton pbExporterHTML2PDF
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   True
-      Caption         =   "PDF"
-      Default         =   False
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   "kExporter en format PDF"
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   484
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   9
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   497
-      Underline       =   False
-      Visible         =   True
-      Width           =   51
-   End
-   Begin PushButton pbPageSetup
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   False
-      Caption         =   "#kPageSetup"
-      Default         =   False
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   620
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   10
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   497
-      Underline       =   False
-      Visible         =   True
-      Width           =   115
-   End
    Begin OptionTimer TheAltKey
       Height          =   32
       Index           =   -2147483648
@@ -224,36 +39,207 @@ Begin BHWindow BHReportXMLViewer
       Top             =   0
       Width           =   32
    End
-   Begin PushButton pbEnvoyerHTMLParCourriel
+   Begin BHViewerXSL cReport
+      AcceptFocus     =   False
+      AcceptTabs      =   False
       AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   True
-      Caption         =   "#kCourriel"
-      Default         =   False
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   "kExporter en format HTML vers un courriel"
-      Index           =   -2147483648
+      BackColor       =   &cFFFFFF00
+      Backdrop        =   0
+      Enabled         =   False
+      EraseBackground =   True
+      HasBackColor    =   False
+      Height          =   562
+      HelpTag         =   ""
+      index           =   -2147483648
       InitialParent   =   ""
-      Italic          =   False
-      Left            =   395
+      Left            =   0
       LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   False
+      LockLeft        =   True
       LockRight       =   True
-      LockTop         =   False
+      LockTop         =   True
       Scope           =   0
-      TabIndex        =   11
+      TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   497
-      Underline       =   False
+      Top             =   2
+      Transparent     =   True
+      Untitled        =   0
+      UseFocusRing    =   True
       Visible         =   True
-      Width           =   77
+      Width           =   882
+   End
+   Begin bar Canvas1
+      AcceptFocus     =   False
+      AcceptTabs      =   False
+      AutoDeactivate  =   True
+      Backdrop        =   0
+      DoubleBuffer    =   False
+      Enabled         =   True
+      EraseBackground =   True
+      Height          =   25
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   False
+      Resizeable      =   False
+      Scope           =   0
+      TabIndex        =   14
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   563
+      Transparent     =   True
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   882
+      Begin BarButton pbFermer
+         AcceptFocus     =   False
+         AcceptTabs      =   False
+         AutoDeactivate  =   True
+         Backdrop        =   0
+         BorderBottom    =   True
+         BorderLeft      =   True
+         BorderRight     =   True
+         BorderTop       =   True
+         DoubleBuffer    =   False
+         Enabled         =   True
+         EraseBackground =   True
+         Height          =   25
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Canvas1"
+         Label           =   "#kFermer"
+         Left            =   0
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Top             =   563
+         Transparent     =   True
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   115
+      End
+      Begin BevelButton BevelButton1
+         AcceptFocus     =   True
+         AutoDeactivate  =   True
+         BackColor       =   &c00000000
+         Bevel           =   4
+         Bold            =   False
+         ButtonType      =   0
+         Caption         =   ""
+         CaptionAlign    =   3
+         CaptionDelta    =   0
+         CaptionPlacement=   1
+         Enabled         =   True
+         HasBackColor    =   False
+         HasMenu         =   2
+         Height          =   25
+         HelpTag         =   ""
+         Icon            =   1221950624
+         IconAlign       =   2
+         IconDX          =   0
+         IconDY          =   0
+         Index           =   -2147483648
+         InitialParent   =   "Canvas1"
+         Italic          =   False
+         Left            =   114
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         MenuValue       =   0
+         Scope           =   0
+         TabIndex        =   2
+         TabPanelIndex   =   0
+         TabStop         =   True
+         TextColor       =   &c00000000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   563
+         Underline       =   False
+         Value           =   False
+         Visible         =   True
+         Width           =   31
+      End
+      Begin BarButton pbImrimper
+         AcceptFocus     =   True
+         AcceptTabs      =   True
+         AutoDeactivate  =   True
+         Backdrop        =   1908749640
+         BorderBottom    =   True
+         BorderLeft      =   True
+         BorderRight     =   True
+         BorderTop       =   True
+         DoubleBuffer    =   False
+         Enabled         =   True
+         EraseBackground =   True
+         Height          =   25
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Canvas1"
+         Label           =   "#kImprimer"
+         Left            =   759
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Top             =   563
+         Transparent     =   True
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   114
+      End
+      Begin BarButton pbPageSetup
+         AcceptFocus     =   False
+         AcceptTabs      =   False
+         AutoDeactivate  =   True
+         Backdrop        =   0
+         BorderBottom    =   True
+         BorderLeft      =   True
+         BorderRight     =   False
+         BorderTop       =   True
+         DoubleBuffer    =   False
+         Enabled         =   True
+         EraseBackground =   True
+         Height          =   25
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Canvas1"
+         Label           =   "#kPageSetup"
+         Left            =   637
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         Scope           =   0
+         TabIndex        =   3
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Top             =   563
+         Transparent     =   True
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   123
+      End
    End
 End
 #tag EndWindow
@@ -261,6 +247,8 @@ End
 #tag WindowCode
 	#tag Method, Flags = &h1000
 		Sub Constructor(pXsl As XslObject, pNomRapport as String, pPreview as Boolean = false, pEmail as string = "")
+		  super.Constructor
+		  
 		  mXsl = pXsl
 		  mNomRapport = pNomRapport
 		  mPreview = pPreview
@@ -270,6 +258,37 @@ End
 		  
 		  cReport.Xsl = mXsl
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub EnregistrerHTMLSurBureau()
+		  cReport.HTML_export(mNomRapport)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub EnregistrerPDFSurBureau()
+		  call cReport.PDF_MBS(mNomRapport)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub EnvoyerHTMLCourriel()
+		  dim html as string
+		  if TargetWin32 then
+		    html = cReport.hReportViewer.IEHTMLTextMBS
+		  else
+		    html = cReport.hReportViewer.mainFrameMBS.dataSource.data
+		  end if
+		  
+		  BHViewerHTMLEmail.showmodal(html, mEmail)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub EnvoyerPDFCourriel()
+		  BHViewerHTMLEmail.showmodal(cReport.PDF_MBS(mNomRapport, true), mEmail)
 		End Sub
 	#tag EndMethod
 
@@ -301,6 +320,56 @@ End
 
 #tag EndWindowCode
 
+#tag Events TheAltKey
+	#tag Event
+		Sub KeyDown()
+		  pbImrimper.Label = kImprimer + " ..."
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub KeyUp()
+		  pbImrimper.Label = kImprimer
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events pbFermer
+	#tag Event
+		Sub Action()
+		  Self.Close
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events BevelButton1
+	#tag Event
+		Sub Open()
+		  #if TargetMacOS then
+		    me.AddRow(kEnvoyerPDFParCourriel)
+		  #endif
+		  me.AddRow(kEnvoyerHTMLParCourriel)
+		  me.AddRow("-")
+		  
+		  #if TargetMacOS then
+		    me.AddRow(kEnregistrerPDFSurLeBureau)
+		  #endif
+		  
+		  me.AddRow(kEnregistrerHTMLSurLeBureau)
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Action()
+		  Select  case me.List(me.MenuValue)
+		  case "kEnvoyerPDFParCourriel"
+		    EnvoyerPDFCourriel
+		  case "kEnvoyerHTMLParCourriel"
+		    EnvoyerHTMLCourriel
+		  case "kEnregistrerPDFSurLeBureau"
+		    EnregistrerPDFSurBureau
+		  case "kEnregistrerHTMLSurLeBureau"
+		    EnregistrerHTMLSurBureau
+		  End Select
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag Events pbImrimper
 	#tag Event
 		Sub Action()
@@ -317,40 +386,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
-		  pbImrimper.Caption = kImprimer + " ..."
+		  pbImrimper.Label = kImprimer + " ..."
 		End Function
-	#tag EndEvent
-#tag EndEvents
-#tag Events pbFermer
-	#tag Event
-		Sub Action()
-		  Self.Close
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events pbExporterHTML
-	#tag Event
-		Sub Action()
-		  cReport.HTML_export(mNomRapport)
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events pbExporterHTML2PDF
-	#tag Event
-		Sub Action()
-		  cReport.PDF_MBS(mNomRapport)
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  #if TargetMacOS then
-		    me.Visible = true
-		  #Else
-		    me.Visible = False
-		  #endif
-		  
-		  
-		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events pbPageSetup
@@ -368,32 +405,6 @@ End
 		  #endif
 		  
 		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events TheAltKey
-	#tag Event
-		Sub KeyDown()
-		  pbImrimper.Caption = kImprimer + " ..."
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub KeyUp()
-		  pbImrimper.Caption = kImprimer
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events pbEnvoyerHTMLParCourriel
-	#tag Event
-		Sub Action()
-		  dim html as string
-		  if TargetWin32 then
-		    html = cReport.hReportViewer.IEHTMLTextMBS
-		  else
-		    html = cReport.hReportViewer.mainFrameMBS.dataSource.data
-		  end if
-		  
-		  BHViewerHTMLEmail.showmodal(html, mEmail)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -529,6 +540,11 @@ End
 		Group="Position"
 		InitialValue="32000"
 		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="mEmail"
+		Group="Behavior"
+		Type="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MenuBar"

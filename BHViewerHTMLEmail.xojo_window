@@ -367,6 +367,13 @@ End
 
 #tag WindowCode
 	#tag Method, Flags = &h1000
+		Sub Constructor(pPDF as folderitem, pEmail as String = "")
+		  mPDF = pPDF
+		  tDestinataireCourriel.Text = pEmail
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
 		Sub Constructor(pHTML as string, pEmail as String = "")
 		  mHTML = pHTML
 		  tDestinataireCourriel.Text = pEmail
@@ -374,7 +381,15 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub showmodal(pHTML as String, pEmail as String= "")
+		 Shared Sub showmodal(pPDF as Folderitem, pEmail as String = "")
+		  Dim pBHReportHTMLViewer As New  BHViewerHTMLEmail(pPDF, pEmail)
+		  
+		  pBHReportHTMLViewer.ShowModal()
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Sub showmodal(pHTML as String, pEmail as String = "")
 		  Dim pBHReportHTMLViewer As New  BHViewerHTMLEmail(pHTML, pEmail)
 		  
 		  pBHReportHTMLViewer.ShowModal()
@@ -386,6 +401,10 @@ End
 		mHTML As String
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		mPDF As FolderItem
+	#tag EndProperty
+
 
 #tag EndWindowCode
 
@@ -395,8 +414,10 @@ End
 		  ProgressWheel1.Visible = true
 		  
 		  dim e as new EmailMessage
+		  dim a as EmailAttachment
 		  dim s as string
-		  //dim html as string
+		  
+		  
 		  s = replaceAll(tDestinataireCourriel.text,",",chr(13))
 		  s = replaceAll(s,chr(13)+chr(10),chr(13))
 		  for i as integer = 1 to countFields(s,chr(13))
@@ -414,16 +435,23 @@ End
 		  
 		  
 		  
-		  //html = Replace(html, "<head>", "<head><base href=""http://www.mbsplugins.de/"" />")
+		  mHTML = Replace(mHTML, "<head>", "<head><base href=""http://www.budjhete.com/"" />")
 		  
 		  e.BodyPlainText = "See html content in this email, Ce courriel est en HTML"
 		  
 		  e.BodyHTML = mHTML
 		  
+		  // attachement
+		  If mPDF <> Nil then
+		    a = New EmailAttachment
+		    a.loadFromFile mPDF
+		    e.attachments.append a
+		  end
+		  
 		  sock.Messages.Append e
 		  sock.Address = Company.Current.Preference("configuration.email.server") //"mail.hete.org" //
 		  sock.Username =  Company.Current.Preference("configuration.email.username") //"etienne@hete.org" //
-		  sock.Password = Company.Current.Preference("configuration.email.password")//"pile4626" // 
+		  sock.Password = Company.Current.Preference("configuration.email.password")//"pile4626" //
 		  if (Company.Current.Preference("configuration.email.port") <> Nil) AND (Company.Current.Preference("configuration.email.port") <> "") then
 		    sock.port = Val(Company.Current.Preference("configuration.email.port")) //25
 		  else
