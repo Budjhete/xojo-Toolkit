@@ -48,7 +48,7 @@ Begin BHWindow BHReportXMLViewer
       Enabled         =   False
       EraseBackground =   True
       HasBackColor    =   False
-      Height          =   562
+      Height          =   561
       HelpTag         =   ""
       index           =   -2147483648
       InitialParent   =   ""
@@ -120,10 +120,12 @@ Begin BHWindow BHReportXMLViewer
          LockLeft        =   True
          LockRight       =   False
          LockTop         =   True
+         Resizeable      =   False
          Scope           =   0
          TabIndex        =   1
          TabPanelIndex   =   0
          TabStop         =   True
+         Tag             =   ""
          Top             =   563
          Transparent     =   True
          UseFocusRing    =   True
@@ -197,10 +199,12 @@ Begin BHWindow BHReportXMLViewer
          LockLeft        =   False
          LockRight       =   True
          LockTop         =   True
+         Resizeable      =   False
          Scope           =   0
          TabIndex        =   0
          TabPanelIndex   =   0
          TabStop         =   True
+         Tag             =   ""
          Top             =   563
          Transparent     =   True
          UseFocusRing    =   True
@@ -230,10 +234,12 @@ Begin BHWindow BHReportXMLViewer
          LockLeft        =   False
          LockRight       =   True
          LockTop         =   True
+         Resizeable      =   False
          Scope           =   0
          TabIndex        =   3
          TabPanelIndex   =   0
          TabStop         =   True
+         Tag             =   ""
          Top             =   563
          Transparent     =   True
          UseFocusRing    =   True
@@ -358,14 +364,15 @@ End
 	#tag Event
 		Sub Action()
 		  Select  case me.List(me.MenuValue)
-		  case "kEnvoyerPDFParCourriel"
+		  case kEnvoyerPDFParCourriel
 		    EnvoyerPDFCourriel
-		  case "kEnvoyerHTMLParCourriel"
+		  case kEnvoyerHTMLParCourriel
 		    EnvoyerHTMLCourriel
-		  case "kEnregistrerPDFSurLeBureau"
+		  case kEnregistrerPDFSurLeBureau
 		    EnregistrerPDFSurBureau
-		  case "kEnregistrerHTMLSurLeBureau"
+		  case kEnregistrerHTMLSurLeBureau
 		    EnregistrerHTMLSurBureau
+		    
 		  End Select
 		End Sub
 	#tag EndEvent
@@ -545,6 +552,7 @@ End
 		Name="mEmail"
 		Group="Behavior"
 		Type="String"
+		EditorType="MultiLineEditor"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MenuBar"

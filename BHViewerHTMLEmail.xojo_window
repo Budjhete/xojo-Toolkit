@@ -362,6 +362,37 @@ Begin BHWindow BHViewerHTMLEmail
       Visible         =   True
       Width           =   296
    End
+   Begin PushButton pbEnvoyer1
+      AutoDeactivate  =   True
+      Bold            =   False
+      ButtonStyle     =   "0"
+      Cancel          =   False
+      Caption         =   "#kEnvoyer"
+      Default         =   True
+      Enabled         =   True
+      Height          =   20
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Italic          =   False
+      Left            =   385
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   0
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      TabStop         =   True
+      TextFont        =   "System"
+      TextSize        =   0.0
+      TextUnit        =   0
+      Top             =   154
+      Underline       =   False
+      Visible         =   False
+      Width           =   88
+   End
 End
 #tag EndWindow
 
@@ -412,6 +443,7 @@ End
 	#tag Event
 		Sub Action()
 		  ProgressWheel1.Visible = true
+		  me.Enabled = False
 		  
 		  dim e as new EmailMessage
 		  dim a as EmailAttachment
@@ -437,7 +469,6 @@ End
 		  
 		  mHTML = Replace(mHTML, "<head>", "<head><base href=""http://www.budjhete.com/"" />")
 		  
-		  e.BodyPlainText = "See html content in this email, Ce courriel est en HTML"
 		  
 		  e.BodyHTML = mHTML
 		  
@@ -446,6 +477,9 @@ End
 		    a = New EmailAttachment
 		    a.loadFromFile mPDF
 		    e.attachments.append a
+		    
+		  Else
+		    e.BodyPlainText = "See html content in this email, Ce courriel est en HTML"
 		  end
 		  
 		  sock.Messages.Append e
@@ -543,6 +577,67 @@ End
 		Sub Action()
 		  ProgressWheel1.Visible = false
 		  self.close
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events pbEnvoyer1
+	#tag Event
+		Sub Action()
+		  ProgressWheel1.Visible = true
+		  me.Enabled = False
+		  
+		  
+		  'Note: the 'p' Variables are Received into this Method as Parameters
+		  
+		  
+		  dim strMessage as String
+		  dim strEmailAddress as String = "mailto:" + tDestinataireCourriel.text
+		  dim strEmailSubject as String = tSujetCourriel.text
+		  dim strEmailBody as String = mHTML
+		  dim strEmailSignature as String = ""
+		  dim strAttachmentName as String
+		  
+		  If mPDF <> Nil then
+		    strAttachmentName = mPDF.Name
+		  end if
+		  dim strCC, strBCC, strReadyToSend as String = ""
+		  
+		  'Construct the Body - Dealing with Cross Platform Differences
+		  strEmailBody = strEmailBody + Encodings.UTF8.Chr(13) + Encodings.UTF8.Chr(13) + strEmailSignature
+		  #if (TargetMacOS) =TRUE
+		    strEmailBody = ReplaceLineEndings(strEmailBody,Chr(10))
+		  #endif
+		  #if (TargetWin32) =TRUE
+		    dim strHTML as String = ""
+		    strEmailBody = ReplaceLineEndings(strEmailBody,"%0D%0A")
+		    strEmailBody = ReplaceAll(strEmailBody," ","%20")
+		    strHTML = strHTML + strEmailBody
+		    strHTML = strHTML + "&nbsp;"
+		    strHTML = strHTML + "</p>"
+		    strEmailBody = strHTML
+		  #endif
+		  
+		  'Deal with CC and BCC
+		  if strCC.Len > 1 and strBCC.Len > 1 then
+		    strMessage = strEmailAddress + "?subject=" + strEmailSubject + "&cc=" + strCC + "&bcc=" + strBCC+ "&body=" + strEmailBody
+		  elseif strCC.Len < 1 and strBCC.Len < 1 then
+		    strMessage = strEmailAddress + "?subject=" + strEmailSubject + "&body=" + strEmailBody
+		  elseif strCC.Len > 1 and strBCC.Len < 1 then
+		    strMessage = strEmailAddress + "?subject=" + strEmailSubject + "&cc=" + strCC + "&body=" + strEmailBody
+		  elseif strCC.Len < 1 and strBCC.Len > 1 then
+		    strMessage = strEmailAddress + "?subject=" + strEmailSubject + "&bcc=" + strBCC + "&body=" + strEmailBody
+		  end if
+		  
+		  'Deal with Attachment
+		  if strAttachmentName.Len > 0 then
+		    strMessage = strMessage + "&attach=" + strAttachmentName
+		  end if
+		  
+		  'Send via Default Email Client
+		  ShowURL strMessage
+		  
+		  
+		  //####################################################################################
 		End Sub
 	#tag EndEvent
 #tag EndEvents
