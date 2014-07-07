@@ -25,7 +25,7 @@ Begin BHContainerControl BHContainerField
    UseFocusRing    =   False
    Visible         =   True
    Width           =   404
-   Begin TextField MultiTextField
+   Begin TextField tTextField
       AcceptTabs      =   False
       Alignment       =   0
       AutoDeactivate  =   True
@@ -42,7 +42,7 @@ Begin BHContainerControl BHContainerField
       HelpTag         =   ""
       Index           =   0
       Italic          =   False
-      Left            =   100
+      Left            =   119
       LimitText       =   0
       LockBottom      =   False
       LockedInPosition=   False
@@ -65,7 +65,7 @@ Begin BHContainerControl BHContainerField
       Underline       =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   267
+      Width           =   257
    End
    Begin PushButton bMoins
       AutoDeactivate  =   True
@@ -98,7 +98,7 @@ Begin BHContainerControl BHContainerField
       Visible         =   True
       Width           =   24
    End
-   Begin PopupMenu pmMenu
+   Begin PopupMenu pMenu
       AutoDeactivate  =   True
       Bold            =   False
       DataField       =   ""
@@ -127,7 +127,7 @@ Begin BHContainerControl BHContainerField
       Top             =   0
       Underline       =   False
       Visible         =   True
-      Width           =   88
+      Width           =   107
    End
 End
 #tag EndWindow
@@ -141,30 +141,33 @@ End
 
 	#tag Event
 		Sub Open()
-		  
+		  RaiseEvent Open
 		End Sub
 	#tag EndEvent
 
 
 	#tag Method, Flags = &h0
-		Sub AddField(pTextField As string, pPopUpMenu as pmMenu)
-		  dim lm as  new MultiTextField
+		Sub AddField(pTextField As String)
+		  dim lm as  new tTextField
 		  dim bm as new bMoins
-		  dim pm as pmMenu
-		  pm = pPopUpMenu
+		  dim pm as New pMenu
 		  
-		  lm.top = MultiTextField(lm.Index - 1).top + 28
-		  lm.width = MultiTextField(lm.Index - 1).Width
-		  pm.top = pmMenu(pm.Index - 1).top + 28
+		  // Adjust menu
+		  pm.top = pMenu(pm.Index - 1).Top + pMenu(pm.Index - 1).Height + Me.Margin
+		  pm.left = pMenu(0).left
 		  
-		  bm.top = bMoins(lm.Index - 1).top + 28
-		  bm.caption = "-"
+		  // Adjust TextField
+		  lm.Top = tTextField(lm.Index - 1).Top + tTextField(lm.Index - 1).Height + Me.Margin
+		  lm.Width = tTextField(lm.Index - 1).Width
+		  lm.left = tTextField(0).left
 		  
-		  lm.left = MultiTextField(0).left
-		  pm.left = pmMenu(0).left
+		  // Adjust button
+		  bm.Top = bMoins(lm.Index - 1).top + bMoins(lm.Index - 1).Height + Me.Margin
+		  bm.Caption = "-"
 		  bm.left = bMoins(0).left
 		  
-		  self.Height = self.Height + 30
+		  // Adjust container size
+		  self.Height = self.Height + pMenu(pm.Index - 1).Height + Me.Margin
 		  
 		  mCount = mCount + 1
 		End Sub
@@ -178,21 +181,20 @@ End
 
 	#tag Method, Flags = &h0
 		Sub DeleteField(mIndex as Integer)
+		  // Resize container
+		  Self.Height = Self.Height - bMoins(mIndex).Height - Me.Margin
+		  
 		  // Move all fields following the removed field
 		  For pIndex As Integer = mIndex + 1 to mCount - 1
-		    bMoins(pIndex).top = bMoins(pIndex).top - 28
-		    MultiTextField(pIndex).top = MultiTextField(pIndex).top - 28
+		    pMenu(pIndex).Top = pMenu(pIndex).top - pMenu(pIndex).Height - Me.Margin
+		    bMoins(pIndex).Top = bMoins(pIndex).top - bMoins(pIndex).Height - Me.Margin
+		    tTextField(pIndex).Top = tTextField(pIndex).Top - tTextField(pIndex).Height - Me.Margin
 		  Next
 		  
-		  MultiTextField(mIndex).Close
+		  tTextField(mIndex).Close
 		  Me.bMoins(mIndex).Close
 		  
 		  mCount = mCount - 1
-		  
-		  Self.Height = Self.Height - 30
-		  
-		  
-		  
 		End Sub
 	#tag EndMethod
 
@@ -202,9 +204,21 @@ End
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
+		Event MenuOpen(index As Integer)
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event Open()
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
 		Event TextChange()
 	#tag EndHook
 
+
+	#tag Property, Flags = &h0
+		Margin As Integer = 10
+	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private mCount As Integer = 1
@@ -217,15 +231,18 @@ End
 	#tag Event
 		Sub Action(index as Integer)
 		  if index = 0 then
-		    dim pm as new pmMenu
 		    
-		    pm.addrow("un")
-		    pm.addrow("deux")
-		    
-		    AddField("du text", pm)
+		    AddField("du text")
 		  Else
 		    Self.DeleteField(index)
 		  end if
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events pMenu
+	#tag Event
+		Sub Open(index as Integer)
+		  RaiseEvent MenuOpen(index)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -337,6 +354,12 @@ End
 		Visible=true
 		Group="Position"
 		Type="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Margin"
+		Group="Behavior"
+		InitialValue="10"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Name"
