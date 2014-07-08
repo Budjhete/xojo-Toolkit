@@ -5,6 +5,12 @@ Inherits BHPopupMenu
 		Sub Open()
 		  me.AddRow(kCanada)
 		  me.RowTag(me.ListCount-1) = isoCanada
+		  me.AddRow("USA")
+		  me.RowTag(me.ListCount-1) = isoUSA
+		  me.AddRow("France")
+		  me.RowTag(me.ListCount-1) = isoFrance
+		  me.AddRow(kChine)
+		  me.RowTag(me.ListCount-1) = isoChine
 		End Sub
 	#tag EndEvent
 
