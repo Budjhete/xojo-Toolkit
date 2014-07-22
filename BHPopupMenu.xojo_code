@@ -51,23 +51,21 @@ Implements SortInterface,BHControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub FillWithAccounts(pAndWhere as String)
-		  Dim result as SQLResult
-		  Dim Sql as String
+		Sub FillWithAccounts(pAndWhere as string)
+		  dim mAndWhere as QueryExpression = db.Expression(pAndWhere)
+		  // FIXME #8139
+		  //Dim result As RecordSet = db.find("noCompte", "Nom").From("Compte").Where("EstActif", "=", "1").AndWhere("NoCompte","is not","NULL").Append(mAndWhere).OrderBy("NoCompte", "ASC").Execute(Company.Current.Database)
+		  Dim result As RecordSet = db.find("noCompte", "Nom").From("Compte").Where("EstActif", "=", "1").AndWhere("NoCompte","is not","NULL").OrderBy("NoCompte", "ASC").Execute(Company.Current.Database)
 		  
-		  Sql = "SELECT noCompte, Nom " + _
-		  " FROM Compte " + _
-		  " WHERE EstActif = 1 AND NoCompte IS NOT NULL " + pAndWhere + _
-		  " ORDER BY NoCompte ASC"
-		  result = doQuery(Sql)
 		  
 		  Me.DeleteAllRows()
 		  
 		  Dim i As Integer = 0
-		  While result.Fetch()
-		    Me.AddRow(result.Field("noCompte").StringValue + ". " + result.Field("Nom").StringValue, result.Field("noCompte").IntegerValue)
-		    Me.RowTag(i) = result.Field("noCompte").IntegerValue
+		  While Not result.EOF
+		    Me.AddRow(result.Field("noCompte").StringValue + ". " + result.Field("Nom").StringValue, result.Field("noCompte"))
+		    Me.RowTag(i) = result.Field("noCompte")
 		    i = i + 1
+		    result.MoveNext
 		  Wend
 		  
 		End Sub
