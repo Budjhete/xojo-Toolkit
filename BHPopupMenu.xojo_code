@@ -45,35 +45,6 @@ Implements SortInterface,BHControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub FillWithAccounts()
-		  FillWithAccounts("")
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub FillWithAccounts(pAndWhere as String)
-		  Dim result as SQLResult
-		  Dim Sql as String
-		  
-		  Sql = "SELECT noCompte, Nom " + _
-		  " FROM Compte " + _
-		  " WHERE EstActif = 1 AND NoCompte IS NOT NULL " + pAndWhere + _
-		  " ORDER BY NoCompte ASC"
-		  result = doQuery(Sql)
-		  
-		  Me.DeleteAllRows()
-		  
-		  Dim i As Integer = 0
-		  While result.Fetch()
-		    Me.AddRow(result.Field("noCompte").StringValue + ". " + result.Field("Nom").StringValue, result.Field("noCompte").IntegerValue)
-		    Me.RowTag(i) = result.Field("noCompte").IntegerValue
-		    i = i + 1
-		  Wend
-		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function Find(pTag As Variant) As Integer
 		  For pRow As Integer = 0 To Me.ListCount - 1
 		    If Me.RowTag(pRow) = pTag Then
@@ -193,6 +164,40 @@ Implements SortInterface,BHControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Update(pRecordSet As RecordSet, pStart As Integer = 0)
+		  While Not pRecordSet.EOF
+		    
+		    Dim pTag As Variant = RaiseEvent Tag(pRecordSet)
+		    Dim pText As String = RaiseEvent Text(pRecordSet)
+		    
+		    For pRow As Integer = pStart To Me.ListCount - 1
+		      
+		      If pTag = Me.RowTag(pRow) Then
+		        Me.RemoveRows(pStart, pRow - 1) // remove seen rows
+		        Exit
+		      End If
+		      
+		    Next
+		    
+		    // Add missing entry
+		    If pStart >= Me.ListCount Then
+		      Me.AddRow(pText, pTag)
+		    ElseIf pTag <> Me.RowTag(pStart) Then
+		      Me.InsertRow(pStart, pText, pTag)
+		    End If
+		    
+		    pRecordSet.MoveNext
+		    pStart = pStart + 1
+		    
+		  WEnd
+		  If pStart < Me.ListCount Then
+		    Me.RemoveRows(pStart, Me.ListCount - 1)
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub Update(pRecordSet As RecordSet, pTagField As String, pTextField As String, pStart As Integer = 0)
 		  While Not pRecordSet.EOF
 		    
@@ -226,6 +231,14 @@ Implements SortInterface,BHControl
 
 	#tag Hook, Flags = &h0
 		Event Check() As Boolean
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event Tag(pRecordSet As RecordSet) As Variant
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event Text(pRecordSet As RecordSet) As String
 	#tag EndHook
 
 
