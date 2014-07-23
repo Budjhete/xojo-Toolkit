@@ -1,21 +1,53 @@
 #tag Class
-Protected Class BHPopupMenuPays
-Inherits BHPopupMenu
+Protected Class BHComboBoxProvinces
+Inherits BHComboBox
 	#tag Event
 		Sub Open()
-		  me.AddRow(kCanada)
-		  me.RowTag(me.ListCount-1) = isoCanada
-		  me.AddRow("USA")
-		  me.RowTag(me.ListCount-1) = isoUSA
-		  me.AddRow("France")
-		  me.RowTag(me.ListCount-1) = isoFrance
-		  me.AddRow(kChine)
-		  me.RowTag(me.ListCount-1) = isoChine
+		  me.AddRow(kAlberta)
+		  me.RowTag(me.ListCount-1) = isoAlberta
+		  
+		  me.AddRow(kColombieBritannique)
+		  me.RowTag(me.ListCount-1) = isoBritishColumbia
+		  me.AddRow(kManitoba)
+		  me.RowTag(me.ListCount-1) = isoManitoba
+		  
+		  me.AddRow(kNouveauBrunswick)
+		  me.RowTag(me.ListCount-1) = isoNewBrunswick
+		  
+		  me.AddRow(kTerreNeuveLabrador)
+		  me.RowTag(me.ListCount-1) = isoNewfoundlandAndLabrador
+		  
+		  me.AddRow(kNouvelleEcosse)
+		  me.RowTag(me.ListCount-1) = isoNovaScotia
+		  
+		  me.AddRow(kOntario)
+		  me.RowTag(me.ListCount-1) = isoOntario
+		  
+		  me.AddRow(kIlePrinceEdouard)
+		  me.RowTag(me.ListCount-1) = isoPrinceEdwardIsland
+		  
+		  me.AddRow(kQuebec)
+		  me.RowTag(me.ListCount-1) = isoQuebec
+		  
+		  me.AddRow(kSaskatchewan)
+		  me.RowTag(me.ListCount-1) = isoSaskatchewan
+		  
+		  me.AddRow(kYukon)
+		  me.RowTag(me.ListCount-1) = isoYukonTerritory
+		  
+		  
 		End Sub
 	#tag EndEvent
 
 
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="AutoComplete"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutoDeactivate"
 			Visible=true
@@ -69,10 +101,6 @@ Inherits BHPopupMenu
 			Visible=true
 			Group="ID"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="InitialParent"
-			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialValue"
@@ -129,12 +157,6 @@ Inherits BHPopupMenu
 			Visible=true
 			Group="ID"
 			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="NotEmpty"
-			Visible=true
-			Group="Validation"
-			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
@@ -201,6 +223,13 @@ Inherits BHPopupMenu
 			Name="Underline"
 			Visible=true
 			Group="Font"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="UseFocusRing"
+			Visible=true
+			Group="Appearance"
+			InitialValue="True"
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty

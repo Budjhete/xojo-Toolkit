@@ -94,7 +94,7 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub PDF_MBS(mNomRapport As String)
+		Function PDF_MBS(mNomRapport As String, mIsEmail as Boolean = false) As FolderItem
 		  PageSetup_MBS(false,mNomRapport)
 		  
 		  Dim i,c,x,y,w,h As Integer
@@ -127,11 +127,19 @@ End
 		  end
 		  System.DebugLog "-- END Grandeur d'impression --"
 		  
+		  //créer un folder si plusieurs fichier pdf
+		  if c > 1 then
+		    f = SpecialFolder.Desktop.Child(mNomRapport)
+		    f.CreateAsFolder()
+		  Else
+		    f = SpecialFolder.Desktop
+		  end if
+		  
 		  i = 0
 		  While i<c
 		    s = web.PrintingPage(i)
 		    
-		    f = SpecialFolder.Desktop.Child(mNomRapport +" - Page "+str(i+1)+".pdf")
+		    f = f.Child(mNomRapport +" - Page "+str(i+1)+".pdf")
 		    b = f.CreateBinaryFile("")
 		    If b <> Nil Then
 		      b.Write s
@@ -142,8 +150,13 @@ End
 		  
 		  web.PrintingEnd
 		  
-		  MsgBox str(c)+" PDF créé(s) sur le bureau."
-		End Sub
+		  if mIsEmail = true then
+		    Return f
+		  else
+		    MsgBox str(c)+"kPDF créé(s) sur le bureau."
+		    Return Nil
+		  end if
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
