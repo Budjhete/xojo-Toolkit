@@ -42,6 +42,13 @@ Inherits BHComboBox
 
 	#tag ViewBehavior
 		#tag ViewProperty
+			Name="AutoComplete"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="AutoDeactivate"
 			Visible=true
 			Group="Appearance"
@@ -94,10 +101,6 @@ Inherits BHComboBox
 			Visible=true
 			Group="ID"
 			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="InitialParent"
-			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialValue"
@@ -154,12 +157,6 @@ Inherits BHComboBox
 			Visible=true
 			Group="ID"
 			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="NotEmpty"
-			Visible=true
-			Group="Validation"
-			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
@@ -226,6 +223,13 @@ Inherits BHComboBox
 			Name="Underline"
 			Visible=true
 			Group="Font"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="UseFocusRing"
+			Visible=true
+			Group="Appearance"
+			InitialValue="True"
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty

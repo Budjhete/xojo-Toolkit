@@ -972,7 +972,6 @@ Implements BHControl
 		    End If
 		  Next
 		  
-		  
 		  // Content
 		  For pRow As Integer = 0 To Me.ListCount - 1
 		    node = pXmlNode.AppendChild(pXmlDocument.CreateElement("row"))

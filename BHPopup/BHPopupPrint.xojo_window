@@ -45,7 +45,7 @@ Begin BHWindow BHPopupPrint
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   False
-      Scope           =   "0"
+      Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
@@ -76,7 +76,7 @@ Begin BHWindow BHPopupPrint
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      Scope           =   "0"
+      Scope           =   0
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
@@ -107,7 +107,7 @@ Begin BHWindow BHPopupPrint
       LockLeft        =   False
       LockRight       =   True
       LockTop         =   False
-      Scope           =   "0"
+      Scope           =   0
       TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
@@ -137,7 +137,7 @@ Begin BHWindow BHPopupPrint
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Scope           =   "0"
+      Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
       TabStop         =   True

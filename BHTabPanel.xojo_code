@@ -391,7 +391,7 @@ Implements BHControl
 		#tag ViewProperty
 			Name="TabDefinition"
 			Group="Appearance"
-			InitialValue="Tab 0\\\\rTab 1"
+			InitialValue="Tab 0\\\\\\\\rTab 1"
 			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty

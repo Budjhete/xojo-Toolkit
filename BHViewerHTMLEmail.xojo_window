@@ -171,6 +171,7 @@ Begin BHWindow BHViewerHTMLEmail
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kCourrielDestinataire"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -266,6 +267,7 @@ Begin BHWindow BHViewerHTMLEmail
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   "#kSujet"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -283,7 +285,8 @@ Begin BHWindow BHViewerHTMLEmail
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   2
-      Height          =   32
+      Enabled         =   True
+      Height          =   "32"
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   885
@@ -292,7 +295,8 @@ Begin BHWindow BHViewerHTMLEmail
       Secure          =   False
       TabPanelIndex   =   0
       Top             =   53
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
    End
    Begin ProgressWheel ProgressWheel1
       AutoDeactivate  =   True
@@ -316,7 +320,8 @@ Begin BHWindow BHViewerHTMLEmail
       Width           =   16
    End
    Begin Timer Timer1
-      Height          =   32
+      Enabled         =   True
+      Height          =   "32"
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
@@ -326,7 +331,8 @@ Begin BHWindow BHViewerHTMLEmail
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   0
-      Width           =   32
+      Visible         =   True
+      Width           =   "32"
    End
    Begin Label lbErreur
       AutoDeactivate  =   True
@@ -350,6 +356,7 @@ Begin BHWindow BHViewerHTMLEmail
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
+      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -459,7 +466,7 @@ End
 		  e.Subject = tSujetCourriel.text
 		  
 		  dim cpny as Company = Company.Current()
-		  if  cpny.Client().courriel <> "" AND  cpny.Client().courriel <> nil then
+		  if  cpny.Client().courriel <> "" then
 		    e.FromAddress = cpny.Client().courriel // "etienne@hete.ca" //
 		  else
 		    e.FromAddress = "no-reply@budjhete.com"
