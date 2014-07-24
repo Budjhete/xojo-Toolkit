@@ -68,7 +68,7 @@ Begin Window BHPreviewWindow
       HasBackColor    =   False
       Height          =   552
       HelpTag         =   ""
-      index           =   -2147483648
+      Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
       LockBottom      =   True
@@ -386,6 +386,11 @@ End
 		Group="Position"
 		InitialValue="32000"
 		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="mEmail"
+		Group="Behavior"
+		Type="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="MenuBar"
