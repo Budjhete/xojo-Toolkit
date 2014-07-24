@@ -955,6 +955,41 @@ Implements BHControl
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function XMLValue(pXmlDocument As XmlDocument) As XmlNode
+		  // Converts a listbox to an XML document
+		  
+		  Dim pXmlNode As XmlNode = pXmlDocument.CreateElement("list")
+		  
+		  Dim node As XmlNode
+		  Dim pDate as new Date()
+		  
+		  // Headers (columns with a width < 0px are hidden)
+		  For pIndex As Integer = 0 To Me.ColumnCount - 1
+		    If Me.Column(pIndex).WidthActual > 0 Then
+		      node = pXmlNode.AppendChild(pXmlDocument.CreateElement("header"))
+		      node.AppendChild(pXmlDocument.CreateTextNode(Me.Heading(pIndex)))
+		    End If
+		  Next
+		  
+		  
+		  // Content
+		  For pRow As Integer = 0 To Me.ListCount - 1
+		    node = pXmlNode.AppendChild(pXmlDocument.CreateElement("row"))
+		    
+		    Dim pColumnIndex As Integer = 0
+		    For Each pField As String In Me.Columns
+		      If Me.Column(pColumnIndex).WidthActual > 0 Then
+		        node.SetAttribute(pField, Me.Cell(pRow, pColumnIndex))
+		      End If
+		      pColumnIndex = pColumnIndex + 1
+		    Next
+		  Next
+		  
+		  Return pXmlNode
+		End Function
+	#tag EndMethod
+
 
 	#tag Hook, Flags = &h0
 		Event CancelChange() As Boolean
