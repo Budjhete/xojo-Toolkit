@@ -40,7 +40,7 @@ Implements SortInterface,BHControl
 
 	#tag Method, Flags = &h0
 		Function Compare(left as Integer, right as Integer) As Integer
-		  return StrComp(Me.List(left).RemoveAccents(), Me.List(right).RemoveAccents, 1)
+		  return StrComp(Me.List(left).ReplaceAccents(), Me.List(right).ReplaceAccents, 1)
 		End Function
 	#tag EndMethod
 
