@@ -138,6 +138,12 @@ End
 		  i = 0
 		  While i<c
 		    s = web.PrintingPage(i)
+		    if c > 1 then
+		      f = SpecialFolder.Desktop.Child(mNomRapport)
+		      f.CreateAsFolder()
+		    Else
+		      f = SpecialFolder.Desktop
+		    end if
 		    
 		    f = f.Child(mNomRapport +" - Page "+str(i+1)+".pdf")
 		    b = f.CreateBinaryFile("")
