@@ -3,6 +3,18 @@ Protected Class BHComboBox
 Inherits ComboBox
 Implements BHControl
 	#tag Method, Flags = &h0
+		Sub AddRow(pText As String)
+		  #if not TargetMacOS
+		    if pText = "-" then
+		      return
+		    end
+		  #endif
+		  
+		  Super.AddRow(pText)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub AddRow(pValue As Variant, pTag As Variant)
 		  AddRow(pValue.StringValue)
 		  RowTag(ListCount - 1) = pTag
@@ -12,6 +24,12 @@ Implements BHControl
 	#tag Method, Flags = &h0
 		Function Check() As Boolean
 		  Return True
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Compare(left as Integer, right as Integer) As Integer
+		  return StrComp(Me.List(left).ReplaceAccents(), Me.List(right).ReplaceAccents, 1)
 		End Function
 	#tag EndMethod
 
@@ -26,10 +44,202 @@ Implements BHControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Find(pTag As Variant) As Integer
+		  For pRow As Integer = 0 To Me.ListCount - 1
+		    If Me.RowTag(pRow) = pTag Then
+		      Return pRow
+		    End If
+		  Next
+		  
+		  Return -1
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub InsertRow(row As Integer, str As String)
+		  #if not TargetMacOS
+		    if str = "-" then
+		      return
+		    end
+		  #endif
+		  
+		  Super.InsertRow(row,str)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub InsertRow(row As Integer, str As String, tag as Variant)
+		  #if not TargetMacOS
+		    if str = "-" then
+		      return
+		    end
+		  #endif
+		  
+		  Super.InsertRow(row,str)
+		  Me.RowTag(row) = tag
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function LastIndex() As Integer
 		  Return ListCount - 1
 		End Function
 	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ListTag() As Variant
+		  if ListIndex < 0 then
+		    return nil
+		  end
+		  
+		  return RowTag(ListIndex)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RemoveRows(pFrom As Integer, pTo As Integer)
+		  // Remove rows from pFrom to pTo inclusively
+		  
+		  For pRow As Integer = pTo DownTo pFrom
+		    Me.RemoveRow(pRow)
+		  Next
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function RowTag() As Variant
+		  Return Me.RowTag(Me.ListIndex)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RowTag(Assigns pTag As Variant)
+		  // Pas la bonne implémentation
+		  // Cette méthode devrait assigner le tag de la row a ListIndex comme dans BHListBox
+		  Me.ListIndex = Me.Find(pTag)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SelectRowTag(pValue As Variant)
+		  // Selects the MenuItem that contains pValue as its rowtag
+		  Dim pIndex As Integer = 0
+		  For pRow As Integer = 0 To Me.ListCount - 1
+		    If Me.RowTag(pRow) = pValue Then
+		      pIndex = pRow
+		    End If
+		  Next
+		  // If the selected index doesn't exist, the first row will be selected
+		  Me.ListIndex = pIndex
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Sort()
+		  'SortLibrary.Sort(Me, Me.ListCount-1) // incompatibilité à vérifer
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Swap(index1 as Integer, index2 as Integer)
+		  dim value1, value2 as String
+		  dim tag1, tag2 as Variant
+		  
+		  value1 = Me.List(index1)
+		  value2 = Me.List(index2)
+		  
+		  tag1 = Me.RowTag(index1)
+		  tag2 = Me.RowTag(index2)
+		  
+		  RemoveRow(index1)
+		  InsertRow(index1, value2)
+		  Me.RowTag(index1) = tag2
+		  
+		  RemoveRow(index2)
+		  InsertRow(index2, value1)
+		  Me.RowTag(index2) = tag1
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Update(pRecordSet As RecordSet, pStart As Integer = 0)
+		  While Not pRecordSet.EOF
+		    
+		    Dim pTag As Variant = RaiseEvent Tag(pRecordSet)
+		    Dim pText As String = RaiseEvent Text(pRecordSet)
+		    
+		    For pRow As Integer = pStart To Me.ListCount - 1
+		      
+		      If pTag = Me.RowTag(pRow) Then
+		        Me.RemoveRows(pStart, pRow - 1) // remove seen rows
+		        Exit
+		      End If
+		      
+		    Next
+		    
+		    // Add missing entry
+		    If pStart >= Me.ListCount Then
+		      Me.AddRow(pText, pTag)
+		    ElseIf pTag <> Me.RowTag(pStart) Then
+		      Me.InsertRow(pStart, pText, pTag)
+		    End If
+		    
+		    pRecordSet.MoveNext
+		    pStart = pStart + 1
+		    
+		  WEnd
+		  If pStart < Me.ListCount Then
+		    Me.RemoveRows(pStart, Me.ListCount - 1)
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub Update(pRecordSet As RecordSet, pTagField As String, pTextField As String, pStart As Integer = 0)
+		  While Not pRecordSet.EOF
+		    
+		    For pRow As Integer = pStart To Me.ListCount - 1
+		      
+		      If pRecordSet.Field(pTagField).Value = Me.RowTag(pRow) Then
+		        Me.RemoveRows(pStart, pRow - 1) // remove seen rows
+		        Exit
+		      End If
+		      
+		    Next
+		    
+		    // Add missing entry
+		    If pStart >= Me.ListCount Then
+		      Me.AddRow(pRecordSet.Field(pTagField).Value ,pRecordSet.Field(pTextField).StringValue)
+		    ElseIf pRecordSet.Field(pTagField).Value <> Me.RowTag(pStart) Then
+		      Me.InsertRow(pStart, pRecordSet.Field(pTextField).StringValue, pRecordSet.Field(pTagField).Value)
+		    End If
+		    
+		    pRecordSet.MoveNext
+		    pStart = pStart + 1
+		    
+		  WEnd
+		  If pStart < Me.ListCount Then
+		    Me.RemoveRows(pStart, Me.ListCount - 1)
+		  End If
+		  
+		End Sub
+	#tag EndMethod
+
+
+	#tag Hook, Flags = &h0
+		Event Check() As Boolean
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event Tag(pRecordSet As RecordSet) As Variant
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event Text(pRecordSet As RecordSet) As String
+	#tag EndHook
 
 
 	#tag ViewBehavior
