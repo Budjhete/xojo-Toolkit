@@ -83,11 +83,11 @@ End
 		  
 		  enc = page.SetupString.Encoding
 		  
-		  page.SetupString = DecodeBase64(Company.Current.Preference("PageSetup."+WorkstationController.Instance.PosteID+"."+pNomRapport), enc)
+		  page.SetupString = DecodeBase64(Company.Current.Preference("PageSetup."+Company.Current.PosteID+"."+pNomRapport), enc)
 		  
-		  If DecodeBase64(Company.Current.Preference("PageSetup."+WorkstationController.Instance.PosteID+"."+pNomRapport), enc).Len < 1 or pShow = True then
+		  If DecodeBase64(Company.Current.Preference("PageSetup."+Company.Current.PosteID+"."+pNomRapport), enc).Len < 1 or pShow = True then
 		    if page.PageSetupDialog then
-		      Company.Current.Preference("PageSetup."+WorkstationController.Instance.PosteID+"."+pNomRapport) = EncodeBase64(page.SetupString,0)
+		      Company.Current.Preference("PageSetup."+Company.Current.PosteID+"."+pNomRapport) = EncodeBase64(page.SetupString,0)
 		    end if
 		  end
 		End Sub
