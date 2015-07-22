@@ -6,8 +6,8 @@ Inherits BHPopupMenu
 		  Dim record As RecordSet = DB.Find("nom", "code").From("Langue").Where("estActif", "=", 1).Execute(Company.Current().Database)
 		  
 		  While not record.EOF
-		    Me.AddRow(record.Field("nom").StringValue)
-		    Me.RowTag(Me.ListCount-1) = record.Field("code").StringValue
+		    Me.AddRow(record.Field("nom").StringValue.DefineEncoding(Encodings.UTF8))
+		    Me.RowTag(Me.ListCount-1) = record.Field("code").StringValue.DefineEncoding(Encodings.UTF8)
 		    record.MoveNext
 		  Wend
 		End Sub

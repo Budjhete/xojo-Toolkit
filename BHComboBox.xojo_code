@@ -212,9 +212,9 @@ Implements BHControl
 		    
 		    // Add missing entry
 		    If pStart >= Me.ListCount Then
-		      Me.AddRow(pRecordSet.Field(pTagField).Value ,pRecordSet.Field(pTextField).StringValue)
+		      Me.AddRow(pRecordSet.Field(pTagField).Value ,pRecordSet.Field(pTextField).StringValue.DefineEncoding(Encodings.UTF8))
 		    ElseIf pRecordSet.Field(pTagField).Value <> Me.RowTag(pStart) Then
-		      Me.InsertRow(pStart, pRecordSet.Field(pTextField).StringValue, pRecordSet.Field(pTagField).Value)
+		      Me.InsertRow(pStart, pRecordSet.Field(pTextField).StringValue.DefineEncoding(Encodings.UTF8), pRecordSet.Field(pTagField).Value)
 		    End If
 		    
 		    pRecordSet.MoveNext
