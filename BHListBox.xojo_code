@@ -956,6 +956,13 @@ Implements BHControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function VisibleRowCount() As Integer
+		  // Returns the number of visible rows
+		  Return Ceil(Me.Height / Me.RowHeight) 
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function XMLValue(pXmlDocument As XmlDocument) As XmlNode
 		  // Converts a listbox to an XML document
 		  
