@@ -44,7 +44,7 @@ Inherits TextField
 		        
 		        TextArray = Split(me.Text,".")  // Create an array separated into elements by the period which says how many Octets we have
 		        
-		        TextArray(TextArray.Ubound) = BuildOctet(TextArray(TextArray.Ubound),Key,Len(TextArray(TextArray.Ubound))+1,TextArray.Ubound+1)  // Build the Octet 
+		        TextArray(TextArray.Ubound) = BuildOctet(TextArray(TextArray.Ubound),Key,Len(TextArray(TextArray.Ubound))+1,TextArray.Ubound+1)  // Build the Octet
 		        
 		        // The text we want to send to the BuildOctet function is the text that is in the last Octet we have built.
 		        // We want to add the Key to the new text
@@ -76,7 +76,7 @@ Inherits TextField
 
 
 	#tag Method, Flags = &h21
-		Private Function BuildOctet(MyText As String, MyKey as String, Count as Integer,Octet As Integer) As String
+		Private Function BuildOctet(MyText As String, MyKey as String, Count as Integer, Octet As Integer) As String
 		  // MyText is the intial or existing text from the text field.
 		  // MyKey is the key that has been pressed
 		  // Count is the current character position (starting at 1) in the current octet
@@ -107,7 +107,7 @@ Inherits TextField
 		        
 		        If Octet < 4 Then MyText = MyText+MyKey  // If We are in Octets 1, 2 or 3 then we return the initial text plus the period.  Otherwise, we end up returning the intial text.
 		        
-		      Elseif Asc(mid(MyText,len(MyText),1)) > 50 Then  // If the previous character is > 2 
+		      Elseif Asc(mid(MyText,len(MyText),1)) > 50 Then  // If the previous character is > 2
 		        
 		        MyText = FourthOctetCheck(MyText,MyKey,Octet)
 		        
@@ -138,7 +138,7 @@ Inherits TextField
 		        If Octet < 4 Then MyText = MyText+MyKey  // If We are in Octets 1, 2 or 3 then we return the initial text plus the period.  Otherwise, we end up returning the intial text.
 		        
 		      ElseIf Asc(mid(MyText,len(MyText)-1,1)) = 50 And Asc(mid(MyText,len(MyText),1)) = 53 and Asc(MyKey) > 52 Then
-		         MyText = MyText  // If two characters prior is a 2 and 1 character prior is a 5 and we are trying to enter higher than 4 then return and ignore the input since we can't have higher than 254.
+		        MyText = MyText  // If two characters prior is a 2 and 1 character prior is a 5 and we are trying to enter higher than 4 then return and ignore the input since we can't have higher than 254.
 		        // Do Nothing
 		      Else
 		        
@@ -216,10 +216,10 @@ Inherits TextField
 		      Dim test as string = Mid(MyText,2,1)
 		      
 		      If MyKey = "0" Then
-		        If Left(MyText,2) = "24" Then 
+		        If Left(MyText,2) = "24" Then
 		          MyText = MyText+MyKey
 		          MyText = BuildSubnet(MyText,Octet)
-		        Else 
+		        Else
 		          MyText = MyText
 		        End If
 		        
@@ -274,7 +274,7 @@ Inherits TextField
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function BuildSubnet(MyText as String,Octet as Integer) As String
+		Private Function BuildSubnet(MyText as String, Octet as Integer) As String
 		  Select Case Octet
 		    
 		  Case 1
@@ -294,7 +294,7 @@ Inherits TextField
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
-		Private Function FourthOctetCheck(MyText as String, MyKey as String, Octet As  Integer) As String
+		Private Function FourthOctetCheck(MyText as String, MyKey as String, Octet As Integer) As String
 		  If Octet < 4 Then  // If we are not in the 4th Octet, the Octet will now be complete so add the key and the period to the string
 		    
 		    //Remove Any Extraneous zeros
@@ -477,12 +477,12 @@ Inherits TextField
 			    Select Case value
 			      
 			    Case 24
-			       me.Text = "255.255.255.0"
+			      me.Text = "255.255.255.0"
 			    Case 1
-			       me.Text = "128.0.0.0"
+			      me.Text = "128.0.0.0"
 			    Case 2
 			      me.Text = "192.0.0.0"
-			    Case 3 
+			    Case 3
 			      me.Text = "224.0.0.0"
 			    Case 4
 			      me.Text = "240.0.0.0"
@@ -666,6 +666,7 @@ Inherits TextField
 			Visible=true
 			Group="ID"
 			Type="Integer"
+			EditorType="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Italic"
@@ -721,6 +722,7 @@ Inherits TextField
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NetworkBits"
@@ -750,6 +752,7 @@ Inherits TextField
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"

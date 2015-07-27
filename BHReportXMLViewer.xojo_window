@@ -36,7 +36,7 @@ Begin BHWindow BHReportXMLViewer
       Mode            =   2
       Period          =   250
       Scope           =   0
-      TabIndex        =   0
+      TabIndex        =   "0"
       TabPanelIndex   =   0
       TabStop         =   True
       Top             =   0
@@ -514,6 +514,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LiveResize"
@@ -613,6 +614,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="OverrideTitleMenu"
@@ -656,6 +658,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"

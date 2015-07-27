@@ -322,6 +322,7 @@ Implements BHControl
 			Visible=true
 			Group="ID"
 			Type="Integer"
+			EditorType="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
@@ -368,6 +369,7 @@ Implements BHControl
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Panels"
@@ -387,11 +389,12 @@ Implements BHControl
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabDefinition"
 			Group="Appearance"
-			InitialValue="Tab 0\\\\\\\\rTab 1"
+			InitialValue="Tab 0\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\rTab 1"
 			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty

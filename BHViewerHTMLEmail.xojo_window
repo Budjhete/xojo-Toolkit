@@ -293,6 +293,7 @@ Begin BHWindow BHViewerHTMLEmail
       LockedInPosition=   False
       Scope           =   0
       Secure          =   False
+      SMTPConnectionMode=   0
       TabPanelIndex   =   0
       Top             =   53
       Visible         =   True
@@ -743,6 +744,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="LiveResize"
@@ -829,6 +831,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="OverrideTitleMenu"
@@ -872,6 +875,7 @@ End
 		Visible=true
 		Group="ID"
 		Type="String"
+		EditorType="String"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Title"

@@ -958,7 +958,7 @@ Implements BHControl
 	#tag Method, Flags = &h0
 		Function VisibleRowCount() As Integer
 		  // Returns the number of visible rows
-		  Return Ceil(Me.Height / Me.RowHeight) 
+		  Return Ceil(Me.Height / Me.RowHeight)
 		End Function
 	#tag EndMethod
 
@@ -1441,6 +1441,7 @@ Implements BHControl
 			Visible=true
 			Group="ID"
 			Type="Integer"
+			EditorType="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
@@ -1507,6 +1508,7 @@ Implements BHControl
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NotEmpty"
@@ -1567,6 +1569,7 @@ Implements BHControl
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
