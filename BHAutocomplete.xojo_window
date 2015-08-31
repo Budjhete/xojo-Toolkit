@@ -88,8 +88,7 @@ Begin BHContainerControl BHAutocomplete Implements View
       _ScrollWidth    =   -1
    End
    Begin Timer focusWatcher
-      Enabled         =   True
-      Height          =   "32"
+      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   40
@@ -99,8 +98,7 @@ Begin BHContainerControl BHAutocomplete Implements View
       Scope           =   0
       TabPanelIndex   =   0
       Top             =   40
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
    End
 End
 #tag EndWindow
