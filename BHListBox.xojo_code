@@ -1163,8 +1163,8 @@ Implements BHControl
 		Private mColumnSortType() As Integer
 	#tag EndProperty
 
-	#tag Property, Flags = &h21
-		Private mIgnoreChanges As Boolean = false
+	#tag Property, Flags = &h0
+		mIgnoreChanges As Boolean = false
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
