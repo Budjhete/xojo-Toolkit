@@ -333,12 +333,16 @@ End
 #tag Events TheAltKey
 	#tag Event
 		Sub KeyDown()
-		  pbImrimper.Label = kImprimer + " ..."
+		  #if TargetMacOS then
+		    pbImrimper.Label = kImprimer + " "
+		  #endif
 		End Sub
 	#tag EndEvent
 	#tag Event
 		Sub KeyUp()
-		  pbImrimper.Label = kImprimer
+		  #if TargetMacOS then
+		    pbImrimper.Label = kImprimer
+		  #endif
 		End Sub
 	#tag EndEvent
 #tag EndEvents
