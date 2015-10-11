@@ -64,6 +64,7 @@ Begin BHContainerControl BHAutocomplete Implements View
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
+      mIgnoreChanges  =   False
       NotEmpty        =   False
       ReadOnly        =   False
       RequiresSelection=   False
@@ -120,7 +121,7 @@ End
 
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  g.ForeColor = &c5B5B5B00
+		  g.ForeColor = RGB(91,91,91)
 		  g.DrawRect(0, 0, g.Width, g.Height)
 		End Sub
 	#tag EndEvent
@@ -336,7 +337,7 @@ End
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h0
-		ErrorColor As Color = &cFFC3B7
+		ErrorColor As Color = &cFDB4A800
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0

@@ -49,17 +49,17 @@ Implements BHControl
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  // Background
-		  g.ForeColor = &ceeeeee
+		  g.ForeColor = RGB(238,238,238)
 		  If Self.mPressed Then
-		    g.ForeColor = &caaaaaa
+		    g.ForeColor = RGB(170,170,170)
 		  End If
 		  
 		  g.FillRect(0, 0, g.Width, g.Height)
 		  
 		  // Highlight
-		  g.ForeColor = &cfdfdfd
+		  g.ForeColor = RGB(253,253,253)
 		  If Self.mPressed Then
-		    g.ForeColor = &cbdbdbd
+		    g.ForeColor = RGB(189,189,189)
 		  End If
 		  
 		  g.FillRect(0, 0, g.Width, g.Height/2)
@@ -72,9 +72,9 @@ Implements BHControl
 		    End If
 		    
 		    If mEnabled Then
-		      g.ForeColor = &c222222
+		      g.ForeColor = RGB(34,34,34)
 		    Else
-		      g.ForeColor = &c555555
+		      g.ForeColor = RGB(85,85,85)
 		    End If
 		    
 		    g.TextSize = 10
@@ -99,9 +99,9 @@ Implements BHControl
 		  
 		  // Bordure(s)
 		  If mPressed Then
-		    g.ForeColor = &c999999
+		    g.ForeColor = RGB(153,153,153)
 		  Else
-		    g.ForeColor = &cd4d4d4
+		    g.ForeColor = RGB(212,212,212)
 		  End If
 		  
 		  g.DrawLine(0, 0, g.Width, 0)

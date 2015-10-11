@@ -4,11 +4,11 @@ Inherits Canvas
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  ' fond
-		  g.ForeColor = &ceeeeee
+		  g.ForeColor = RGB(238,238,238)
 		  g.FillRect(0, 0, g.Width, g.Height)
 		  
 		  ' highlight
-		  g.ForeColor = &cfdfdfd
+		  g.ForeColor = RGB(253,253,253)
 		  g.FillRect(0, 0, g.Width, g.Height/2)
 		  
 		  if Resizeable then
@@ -18,17 +18,17 @@ Inherits Canvas
 		    for i as Integer = 0 to 3
 		      dim x as Integer = g.Width - 6 - 3*i
 		      
-		      g.ForeColor = &c999999
+		      g.ForeColor = RGB(153,153,153)
 		      g.DrawLine(x, y1, x, y2)
 		      
 		      x = x + 1
-		      g.ForeColor = &cf5f5f5
+		      g.ForeColor = RGB(245,245,245)
 		      g.DrawLine(x, y1, x, y2)
 		    next
 		  end
 		  
 		  ' bordure(s)
-		  g.ForeColor = &cd4d4d4
+		  g.ForeColor = RGB(212,212,212)
 		  g.DrawLine(0, 0, g.Width-1, 0)
 		End Sub
 	#tag EndEvent

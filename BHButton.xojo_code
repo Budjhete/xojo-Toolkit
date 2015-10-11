@@ -56,11 +56,11 @@ Implements BHControl
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  ' fond
-		  g.ForeColor = IIF(EstActif, &caaaaaa, &ceeeeee)
+		  g.ForeColor = IIF(EstActif, RGB(170,170,170), RGB(238,238,238))
 		  g.FillRect(0, 0, g.Width, g.Height)
 		  
 		  ' highlight
-		  g.ForeColor = IIF(EstActif, &cbdbdbd, &cfdfdfd)
+		  g.ForeColor = IIF(EstActif, RGB(189,189,189), RGB(253,253,253))
 		  g.FillRect(0, 0, g.Width, g.Height/2)
 		  
 		  'dim size as Integer = 0
@@ -75,7 +75,7 @@ Implements BHControl
 		      textX = textX + (Backdrop.Width + kIconTextSpace)/2
 		    end
 		    
-		    g.ForeColor = IIF(Me.Enabled, &c222222, &c555555)
+		    g.ForeColor = IIF(Me.Enabled, RGB(34,34,34), RGB(85,85,85))
 		    g.TextSize = 10
 		    g.DrawString(Caption, textX, ((g.Height - g.TextHeight) / 2 + g.TextHeight) - 2, TextAlign.Center)
 		  end
@@ -84,7 +84,7 @@ Implements BHControl
 		  
 		  
 		  ' bordure(s)
-		  g.ForeColor = IIF(EstActif, &c999999, &cd4d4d4)
+		  g.ForeColor = IIF(EstActif, RGB(153,153,153), RGB(212,212,212))
 		  g.DrawRect(0, 0, g.Width, g.Height)
 		End Sub
 	#tag EndEvent
