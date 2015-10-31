@@ -501,7 +501,7 @@ End
 		  If Me.ListIndex <> -1 Then
 		    
 		    mSelectedTag = Me.RowTag
-		    mSelectedText =Me.Cell(Me.ListIndex, 0)
+		    mSelectedText = Me.Cell(Me.ListIndex, 0)
 		    
 		    RaiseEvent Change
 		    
@@ -516,7 +516,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Function KeyDown(Key As String) As Boolean
-		  //Raise New RuntimeException // Hmmm... ceci n'est visiblement jamais appelé : ouioui t'inquiette ca été appeller !
+		  //Raise New RuntimeException // Hmmm... ceci n'est visiblement jamais appelé : ouioui t'inquiette ca été appeller ! : j'aime vos messages !
 		  Return Self.KeyDown(TextField, Key)
 		  
 		End Function
