@@ -533,7 +533,7 @@ Implements BHControl
 	#tag Method, Flags = &h0
 		Sub DeleteAllRows()
 		  Super.DeleteAllRows()
-		  mRowSelected = Me.ListIndex
+		  mRowSelected = -1 //Me.ListIndex  // wtf ?! si tu deletes tout, comment peux-tu avoir un listindex ?!
 		  
 		End Sub
 	#tag EndMethod
@@ -1501,6 +1501,12 @@ Implements BHControl
 			Name="LockTop"
 			Visible=true
 			Group="Position"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="mIgnoreChanges"
+			Group="Behavior"
+			InitialValue="false"
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
