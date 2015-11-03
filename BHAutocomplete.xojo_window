@@ -487,6 +487,7 @@ End
 		Function CellClick(row as Integer, column as Integer, x as Integer, y as Integer) As Boolean
 		  mSelectedTag = Me.RowTag(row)
 		  mSelectedText =Me.Cell(row, 0)
+		  mTextField.Text = mSelectedText
 		  
 		  Call Self.KeyDown(TextField, Chr(13)) // ENTER
 		End Function
