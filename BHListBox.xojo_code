@@ -4,24 +4,26 @@ Inherits ListBox
 Implements BHControl
 	#tag Event
 		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
-		  If AlternateRows And row Mod 2 = 0 then
-		    g.ForeColor = AlternateRowColor
-		    g.FillRect(0, 0, g.Width, g.Height)
-		  End
-		  
-		  If row < Me.ListCount Then
-		    
-		    // Check the cell
-		    If Not Me.CheckCell(row, column) Then
-		      g.ForeColor = ErrorColor
+		  if row <= me.LastIndex then
+		     If AlternateRows And row Mod 2 = 0 then
+		      g.ForeColor = AlternateRowColor
 		      g.FillRect(0, 0, g.Width, g.Height)
+		    End
+		    
+		    If row < Me.ListCount Then
+		      
+		      // Check the cell
+		      If Not Me.CheckCell(row, column) Then
+		        g.ForeColor = ErrorColor
+		        g.FillRect(0, 0, g.Width, g.Height)
+		      End If
+		      
+		      RaiseEvent CellContentPaint(g, row, column)
+		      
 		    End If
 		    
-		    RaiseEvent CellContentPaint(g, row, column)
-		    
-		  End If
-		  
-		  Return RaiseEvent CellBackgroundPaint(g, row, column)
+		    Return RaiseEvent CellBackgroundPaint(g, row, column)
+		  end if
 		End Function
 	#tag EndEvent
 
@@ -186,6 +188,7 @@ Implements BHControl
 		  end
 		  
 		  RaiseEvent DoubleClick()
+		  
 		End Sub
 	#tag EndEvent
 
