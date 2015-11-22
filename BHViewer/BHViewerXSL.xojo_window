@@ -58,6 +58,15 @@ End
 
 
 	#tag Method, Flags = &h1000
+		Sub Constructor(pCol() as string, pRecordSet as RecordSet)
+		  // Calling the overridden superclass constructor.
+		  Super.Constructor
+		  mColums = pCol
+		  mRecordSet = pRecordSet
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h1000
 		Sub Constructor(pXSL As XSLObject)
 		  // Calling the overridden superclass constructor.
 		  Super.Constructor
@@ -66,11 +75,17 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function HTML() As String
+		  Return hReportViewer.HTMLTextMBS
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub HTML_export(pNomRapport as String = "default")
 		  //sauvegarde du html
 		  
 		  dim fp as TextOutputStream = TextOutputStream.Create(SpecialFolder.Desktop.Child(pNomRapport+".html"))
-		  fp.WriteLine(mXSL.Render)
+		  fp.WriteLine(hReportViewer.HTMLTextMBS)
 		  fp.Close()
 		  MsgBox kLeFichier + "« " + pNomRapport + " »" + kAEteEnregistrerSurVotreBureau
 		End Sub
@@ -274,6 +289,14 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
+		Private mColums() As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mRecordSet As RecordSet
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private mXSL As XSLObject
 	#tag EndProperty
 
@@ -283,10 +306,6 @@ End
 
 	#tag Property, Flags = &h0
 		ThaPageSetup As PrinterSetup
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		Untitled As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -486,11 +505,6 @@ End
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Untitled"
-		Group="Behavior"
-		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="UseFocusRing"
