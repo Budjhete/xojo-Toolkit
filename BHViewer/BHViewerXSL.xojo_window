@@ -75,6 +75,83 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub ggBars(pRecordSet as RecordSet, pColumsType() as integer)
+		  mRecordSet = pRecordSet
+		  
+		  dim s as string
+		  s = ggkBar1Head
+		  
+		  //s = s + kBar2Data
+		  // set headers
+		  // data style : ['Year', 'Sales', 'Expenses', 'Profit'],
+		  
+		  s = s + "["
+		  
+		  For i As Integer = 0 To mRecordSet.FieldCount-1
+		    s = s + "'" + mRecordSet.IdxField(i+1).Name + "'"
+		    if i <> mRecordSet.FieldCount-1 then
+		      s = s + ", "
+		    end if
+		  Next
+		  
+		  s = s + "]," + EndOfLine
+		  
+		  // set data
+		  // data style : ['2014', 1000, 400, 200],
+		  
+		  While Not mRecordSet.EOF
+		    s = s + "["
+		    
+		    For i As Integer = 0 To mRecordSet.FieldCount-1
+		      
+		      if pColumsType(i) = 4 or pColumsType(i) = 5 or pColumsType(i) = 15 then
+		        s = s + "'" + ReplaceAll(mRecordSet.IdxField(i+1).StringValue, "'", "`") + "'"
+		      else
+		        s = s + ReplaceAll(mRecordSet.IdxField(i+1).StringValue, "'", "`")
+		        
+		      end if
+		      
+		      if i <> mRecordSet.FieldCount-1 then
+		        s = s + ", "
+		      end if
+		    Next
+		    s = s + "]"
+		    
+		    mRecordSet.MoveNext
+		    
+		    if not mRecordSet.EOF then
+		      s = s + ", " + EndOfLine
+		    Else
+		      s = s + EndOfLine
+		    end if
+		  Wend
+		  
+		  s = s + ggkBar3Option
+		  s = s + ggkBar4OptionData
+		  s = s + ggkBar5End
+		  
+		  Dim f As FolderItem = GetTemporaryFolderItem
+		  hReportViewer.LoadPage(s, f)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ggLinearLines()
+		  dim s as string
+		  s = ggkLinearline1Head
+		  s = s + ggkLinearline2Colums
+		  s = s + ggkLinearline3Data
+		  s = s + ggkLinearline4Option
+		  s = s + ggkLinearline5End
+		  
+		  Dim f As FolderItem = GetTemporaryFolderItem
+		  hReportViewer.LoadPage(s, f)
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function HTML() As String
 		  Return hReportViewer.HTMLTextMBS
 		End Function
@@ -332,6 +409,37 @@ End
 		#tag EndSetter
 		XSL As XSLObject
 	#tag EndComputedProperty
+
+
+	#tag Constant, Name = ggkBar1Head, Type = String, Dynamic = False, Default = \"<html>\n  <head>\n    <script type\x3D\"text/javascript\" src\x3D\"https://www.google.com/jsapi\"></script>\n    <script type\x3D\"text/javascript\">\n      google.load(\"visualization\"\x2C \"1.1\"\x2C {packages:[\"bar\"]});\n      google.setOnLoadCallback(drawChart);\n      function drawChart() {\n        var data \x3D google.visualization.arrayToDataTable([\n", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ggkBar2Data, Type = String, Dynamic = False, Default = \"          [\'Year\'\x2C \'Sales\'\x2C \'Expenses\'\x2C \'Profit\']\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [\'2014\'\x2C 1000\x2C 400\x2C 200]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [\'2015\'\x2C 1170\x2C 460\x2C 250]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [\'2016\'\x2C 660\x2C 1120\x2C 300]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [\'2017\'\x2C 1030\x2C 540\x2C 350]\n", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ggkBar3Option, Type = String, Dynamic = False, Default = \" ]);\n\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 var options \x3D {\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 chart: {\n", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ggkBar4OptionData, Type = String, Dynamic = False, Default = \"title: \'Company Performance\'\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 subtitle: \'Sales\x2C Expenses\x2C and Profit: 2014-2017\'\x2C\n", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ggkBar5End, Type = String, Dynamic = False, Default = \" }\n};\n\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 var chart \x3D new google.charts.Bar(document.getElementById(\'columnchart_material\'));\n\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 chart.draw(data\x2C options);\n\xC2\xA0 \xC2\xA0 \xC2\xA0 }\n\xC2\xA0 \xC2\xA0 </script>\n\xC2\xA0 </head>\n\xC2\xA0 <body>\n\xC2\xA0 \xC2\xA0 <div id\x3D\"columnchart_material\" style\x3D\"width: 900px; height: 500px;\"></div>\n\xC2\xA0 </body>\n</html>\n", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ggkLinearline1Head, Type = String, Dynamic = False, Default = \"<html>\n<head>\n\xC2\xA0 <script type\x3D\"text/javascript\" src\x3D\"https://www.google.com/jsapi\"></script>\n\xC2\xA0 <script type\x3D\"text/javascript\">\n\xC2\xA0 \xC2\xA0 google.load(\'visualization\'\x2C \'1.1\'\x2C {packages: [\'line\']});\n\xC2\xA0 \xC2\xA0 google.setOnLoadCallback(drawChart);\n\n\xC2\xA0 \xC2\xA0 function drawChart() {\n\n\xC2\xA0 \xC2\xA0 \xC2\xA0 var data \x3D new google.visualization.DataTable();\n", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ggkLinearline2Colums, Type = String, Dynamic = False, Default = \"data.addColumn(\'number\'\x2C \'Day\');\n\xC2\xA0 \xC2\xA0 \xC2\xA0 data.addColumn(\'number\'\x2C \'Guardians of the Galaxy\');\n\xC2\xA0 \xC2\xA0 \xC2\xA0 data.addColumn(\'number\'\x2C \'The Avengers\');\n\xC2\xA0 \xC2\xA0 \xC2\xA0 data.addColumn(\'number\'\x2C \'Transformers: Age of Extinction\');\n\n\xC2\xA0 \xC2\xA0 \xC2\xA0 data.addRows([\n", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ggkLinearline3Data, Type = String, Dynamic = False, Default = \"[1\x2C \xC2\xA037.8\x2C 80.8\x2C 41.8]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [2\x2C \xC2\xA030.9\x2C 69.5\x2C 32.4]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [3\x2C \xC2\xA025.4\x2C \xC2\xA0 57\x2C 25.7]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [4\x2C \xC2\xA011.7\x2C 18.8\x2C 10.5]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [5\x2C \xC2\xA011.9\x2C 17.6\x2C 10.4]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [6\x2C \xC2\xA0 8.8\x2C 13.6\x2C \xC2\xA07.7]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [7\x2C \xC2\xA0 7.6\x2C 12.3\x2C \xC2\xA09.6]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [8\x2C \xC2\xA012.3\x2C 29.2\x2C 10.6]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [9\x2C \xC2\xA016.9\x2C 42.9\x2C 14.8]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [10\x2C 12.8\x2C 30.9\x2C 11.6]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [11\x2C \xC2\xA05.3\x2C \xC2\xA07.9\x2C \xC2\xA04.7]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [12\x2C \xC2\xA06.6\x2C \xC2\xA08.4\x2C \xC2\xA05.2]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [13\x2C \xC2\xA04.8\x2C \xC2\xA06.3\x2C \xC2\xA03.6]\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 [14\x2C \xC2\xA04.2\x2C \xC2\xA06.2\x2C \xC2\xA03.4]\n", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ggkLinearline4Option, Type = String, Dynamic = False, Default = \" ]);\n\n\xC2\xA0 \xC2\xA0 \xC2\xA0 var options \x3D {\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 chart: {\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 title: \'Box Office Earnings in First Two Weeks of Opening\'\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 subtitle: \'in millions of dollars (USD)\'\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 }\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 width: 1000\x2C\n\xC2\xA0 \xC2\xA0 \xC2\xA0 \xC2\xA0 height: 900\n\xC2\xA0 \xC2\xA0 \xC2\xA0 };\n", Scope = Public
+	#tag EndConstant
+
+	#tag Constant, Name = ggkLinearline5End, Type = String, Dynamic = False, Default = \"\n\xC2\xA0 \xC2\xA0 \xC2\xA0 var chart \x3D new google.charts.Line(document.getElementById(\'linechart_material\'));\n\n\xC2\xA0 \xC2\xA0 \xC2\xA0 chart.draw(data\x2C options);\n\xC2\xA0 \xC2\xA0 }\n\xC2\xA0 </script>\n</head>\n<body>\n\xC2\xA0 <div id\x3D\"linechart_material\"></div>\n</body>\n</html>\n", Scope = Public
+	#tag EndConstant
 
 
 #tag EndWindowCode
