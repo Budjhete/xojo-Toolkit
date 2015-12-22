@@ -5,7 +5,7 @@ Implements BHControl
 	#tag Event
 		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
 		  if row <= me.LastIndex then
-		     If AlternateRows And row Mod 2 = 0 then
+		    If AlternateRows And row Mod 2 = 0 then
 		      g.ForeColor = AlternateRowColor
 		      g.FillRect(0, 0, g.Width, g.Height)
 		    End
@@ -1092,9 +1092,6 @@ Implements BHControl
 	#tag Note, Name = Documentation
 		
 		Browseable : Définit si une liste peut être parcourue par la touche TAB. Désactivé par défaut.
-	#tag EndNote
-
-	#tag Note, Name = Untitled
 	#tag EndNote
 
 
