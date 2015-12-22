@@ -153,18 +153,32 @@ End
 
 	#tag Method, Flags = &h0
 		Function HTML() As String
-		  Return hReportViewer.HTMLTextMBS
+		  dim h as string = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>"
+		  
+		  h = h + EndOfLine + hReportViewer.HTMLTextMBS
+		  
+		  Return h
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub HTML_export(pNomRapport as String = "default")
 		  //sauvegarde du html
+		  dim h as string = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>"
+		  
+		  h = h + EndOfLine + hReportViewer.HTMLTextMBS
 		  
 		  dim fp as TextOutputStream = TextOutputStream.Create(SpecialFolder.Desktop.Child(pNomRapport+".html"))
-		  fp.WriteLine(hReportViewer.HTMLTextMBS)
+		  fp.WriteLine(h)
 		  fp.Close()
 		  MsgBox kLeFichier + "« " + pNomRapport + " »" + kAEteEnregistrerSurVotreBureau
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub LoadHTML(pHTML as String)
+		  Dim f As FolderItem = GetTemporaryFolderItem
+		  hReportViewer.LoadPage(pHTML, f)
 		End Sub
 	#tag EndMethod
 
@@ -448,6 +462,11 @@ End
 	#tag Event
 		Sub Open()
 		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentComplete(URL as String)
+		  PanelCompagnie(Self.Window).EnableActions
 		End Sub
 	#tag EndEvent
 #tag EndEvents
