@@ -137,7 +137,11 @@ Implements SortInterface,BHControl
 
 	#tag Method, Flags = &h0
 		Function RowTag() As Variant
-		  Return Me.RowTag(Me.ListIndex)
+		  if me.ListIndex <> -1 then 
+		    return Me.RowTag(Me.ListIndex)
+		  else
+		    return nil
+		  end if
 		End Function
 	#tag EndMethod
 
@@ -329,6 +333,7 @@ Implements SortInterface,BHControl
 			Visible=true
 			Group="ID"
 			Type="Integer"
+			EditorType="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
@@ -390,6 +395,7 @@ Implements SortInterface,BHControl
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NotEmpty"
@@ -402,6 +408,7 @@ Implements SortInterface,BHControl
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
