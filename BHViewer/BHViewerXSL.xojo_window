@@ -466,7 +466,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub DocumentComplete(URL as String)
-		  PanelCompagnie(Self.Window).EnableActions
+		  'PanelCompagnie(Self.Window).EnableActions  //wtf ?!
 		End Sub
 	#tag EndEvent
 #tag EndEvents
