@@ -27,8 +27,7 @@ Begin BHWindow BHReportXMLViewer
    Visible         =   True
    Width           =   882
    Begin OptionTimer TheAltKey
-      Enabled         =   True
-      Height          =   "32"
+      Height          =   32
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
@@ -36,12 +35,9 @@ Begin BHWindow BHReportXMLViewer
       Mode            =   2
       Period          =   250
       Scope           =   0
-      TabIndex        =   "0"
       TabPanelIndex   =   0
-      TabStop         =   True
       Top             =   0
-      Visible         =   True
-      Width           =   "32"
+      Width           =   32
    End
    Begin BHViewerXSL cReport
       AcceptFocus     =   False
@@ -54,7 +50,7 @@ Begin BHWindow BHReportXMLViewer
       HasBackColor    =   False
       Height          =   561
       HelpTag         =   ""
-      Index           =   -2147483648
+      index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
       LockBottom      =   True
@@ -391,8 +387,10 @@ End
 		  #if TargetMacOS then
 		    if Keyboard.AltKey then
 		      cReport.Print()
-		    else
+		    ElseIf Keyboard.ControlKey then
 		      cReport.PrintMBS(mNomRapport)
+		    else
+		      cReport.PrintNS(mNomRapport)
 		    end
 		  #Else
 		    cReport.Print()

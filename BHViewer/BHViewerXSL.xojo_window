@@ -52,7 +52,11 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Open()
-		  
+		  if TargetCocoa then
+		    NSPageSetup = NSPrintInfoMBS.sharedPrintInfo
+		  else
+		    MsgBox "Please run as Cocoa Mac app."
+		  end if
 		End Sub
 	#tag EndEvent
 
@@ -196,6 +200,8 @@ End
 		      Company.Current.Preference("PageSetup."+Company.Current.PosteID+"."+pNomRapport) = EncodeBase64(page.SetupString,0)
 		    end if
 		  end
+		  
+		  NSPageSetup.SetupString = page.SetupString
 		End Sub
 	#tag EndMethod
 
@@ -369,6 +375,26 @@ End
 		End Sub
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Sub PrintNS(pNomRapport as string)
+		  'PrintInfo.HorizontallyCentered = false
+		  'PrintInfo.VerticallyCentered = false
+		  NSPageSetup.horizontalPagination = NSPageSetup.NSAutoPagination
+		  
+		  NSPageSetup.leftMargin = 0
+		  NSPageSetup.rightMargin = 0
+		  NSPageSetup.topMargin = 0
+		  NSPageSetup.bottomMargin = 0
+		  
+		  dim o as NSPrintOperationMBS = NSPrintOperationMBS.printOperationWithView(hReportViewer, NSPageSetup)
+		  
+		  o.showsPrintPanel = true
+		  o.runOperationModalForWindow(self.Window)
+		  o = nil
+		  
+		End Sub
+	#tag EndMethod
+
 
 	#tag Note, Name = README
 		Permet d'afficher le rendu d'un XslObject
@@ -392,11 +418,19 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		NSPageSetup As NSPrintInfoMBS
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		page As printerSetup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		ThaPageSetup As PrinterSetup
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Untitled As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -462,11 +496,6 @@ End
 	#tag Event
 		Sub Open()
 		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub DocumentComplete(URL as String)
-		  'PanelCompagnie(Self.Window).EnableActions  //wtf ?!
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -632,6 +661,11 @@ End
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="Untitled"
+		Group="Behavior"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="UseFocusRing"
