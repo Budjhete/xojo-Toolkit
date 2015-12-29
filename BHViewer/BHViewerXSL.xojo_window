@@ -50,17 +50,6 @@ End
 #tag EndWindow
 
 #tag WindowCode
-	#tag Event
-		Sub Open()
-		  if TargetCocoa then
-		    NSPageSetup = NSPrintInfoMBS.sharedPrintInfo
-		  else
-		    MsgBox "Please run as Cocoa Mac app."
-		  end if
-		End Sub
-	#tag EndEvent
-
-
 	#tag Method, Flags = &h1000
 		Sub Constructor(pCol() as string, pRecordSet as RecordSet)
 		  // Calling the overridden superclass constructor.
@@ -187,7 +176,47 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub PageSetupNS(pShow as Boolean, pNomRapport as String = "default")
+		  // get Xojo printer setup
+		  dim page as new PrinterSetup
+		  
+		  
+		  
+		  dim enc as TextEncoding
+		  
+		  
+		  // si le setting existe dans la db
+		  
+		  If DecodeBase64(Company.Current.Preference("PageSetupNS."+Company.Current.PosteID+"."+pNomRapport), enc).Len < 1 or pShow = True then
+		    NSPageLayoutMBS.runPageLayout
+		    
+		  else
+		    page.SetupString = DecodeBase64(Company.Current.Preference("PageSetupNS."+Company.Current.PosteID+"."+pNomRapport), enc)
+		    
+		  end
+		  
+		  // now put it into NSPrintInfo to manipulate
+		  dim info as new NSPrintInfoMBS(page.SetupString)
+		  
+		  info.printer = app.PrintConfig.printer
+		  info.topMargin = app.PrintConfig.topMargin
+		  info.leftMargin = app.PrintConfig.leftMargin
+		  info.rightMargin = app.PrintConfig.rightMargin
+		  info.bottomMargin = app.PrintConfig.bottomMargin
+		  
+		  page.SetupString = info.SetupString
+		  
+		  
+		  Company.Current.Preference("PageSetupNS."+Company.Current.PosteID+"."+pNomRapport) = EncodeBase64(page.SetupString,0)
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub PageSetup_MBS(pShow as Boolean, pNomRapport as String = "default")
+		  // backup print setting
+		  dim printsettingbackup as new NSPrintInfoMBS 
+		  printsettingbackup = app.PrintConfig
+		  
 		  page = New PrinterSetup
 		  dim enc as TextEncoding
 		  
@@ -201,7 +230,11 @@ End
 		    end if
 		  end
 		  
-		  NSPageSetup.SetupString = page.SetupString
+		  app.PrintConfig.SetupString = page.SetupString
+		  app.PrintConfig.topMargin = printsettingbackup.topMargin
+		  app.PrintConfig.leftMargin = printsettingbackup.leftMargin
+		  app.PrintConfig.rightMargin = printsettingbackup.rightMargin
+		  app.PrintConfig.bottomMargin = printsettingbackup.bottomMargin
 		End Sub
 	#tag EndMethod
 
@@ -376,20 +409,11 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub PrintNS(pNomRapport as string)
-		  'PrintInfo.HorizontallyCentered = false
-		  'PrintInfo.VerticallyCentered = false
-		  NSPageSetup.horizontalPagination = NSPageSetup.NSAutoPagination
-		  
-		  NSPageSetup.leftMargin = 0
-		  NSPageSetup.rightMargin = 0
-		  NSPageSetup.topMargin = 0
-		  NSPageSetup.bottomMargin = 0
-		  
-		  dim o as NSPrintOperationMBS = NSPrintOperationMBS.printOperationWithView(hReportViewer, NSPageSetup)
+		Sub PrintNS(pNomRapport as string, pWindow as Window)
+		  dim o as NSPrintOperationMBS = NSPrintOperationMBS.printOperationWithView(hReportViewer, app.PrintConfig)
 		  
 		  o.showsPrintPanel = true
-		  o.runOperationModalForWindow(self.Window)
+		  o.runOperationModalForWindow(pWindow)
 		  o = nil
 		  
 		End Sub
@@ -418,19 +442,11 @@ End
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		NSPageSetup As NSPrintInfoMBS
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		page As printerSetup
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		ThaPageSetup As PrinterSetup
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		Untitled As Integer
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -447,7 +463,7 @@ End
 			Set
 			  mXSL = value
 			  
-			  if Company.current().Preference("GenereParKanjo").BooleanValue then
+			  if Company.current().Preference("GenereParKanjo").BooleanValue and mXSL <> Nil then
 			    mXSL.Data.Value("GenereParKanjo") = kGenereParKanjo
 			  end if
 			  
@@ -665,11 +681,6 @@ End
 		InitialValue="True"
 		Type="Boolean"
 		EditorType="Boolean"
-	#tag EndViewProperty
-	#tag ViewProperty
-		Name="Untitled"
-		Group="Behavior"
-		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="UseFocusRing"

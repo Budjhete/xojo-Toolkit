@@ -64,7 +64,6 @@ Begin BHWindow BHReportXMLViewer
       TabStop         =   True
       Top             =   2
       Transparent     =   True
-      Untitled        =   0
       UseFocusRing    =   True
       Visible         =   True
       Width           =   882
@@ -299,6 +298,12 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub MarginsPreview()
+		  cReport.Left = app.PrintConfig
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		 Shared Sub ShowModal(pXSL as XslObject, nomRapport as String, pPreview as Boolean = false, pEmail as string = "")
 		  Dim pBHReportXMLViewer As New  BHReportXMLViewer(pXsl, nomRapport, pPreview, pEmail)
 		  
@@ -390,7 +395,7 @@ End
 		    ElseIf Keyboard.ControlKey then
 		      cReport.PrintMBS(mNomRapport)
 		    else
-		      cReport.PrintNS(mNomRapport)
+		      cReport.PrintNS(mNomRapport, self)
 		    end
 		  #Else
 		    cReport.Print()
@@ -406,7 +411,7 @@ End
 #tag Events pbPageSetup
 	#tag Event
 		Sub Action()
-		  cReport.PageSetup_MBS(true, mNomRapport)
+		  cReport.PageSetupNS(true, mNomRapport)
 		End Sub
 	#tag EndEvent
 	#tag Event
