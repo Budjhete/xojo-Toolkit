@@ -447,6 +447,10 @@ End
 			Set
 			  mXSL = value
 			  
+			  if Company.current().Preference("GenereParKanjo").BooleanValue then
+			    mXSL.Data.Value("GenereParKanjo") = kGenereParKanjo
+			  end if
+			  
 			  // Reload
 			  If mXSL <> Nil Then
 			    hReportViewer.LoadPage(mXSL.Render, Company.Current.DatabaseFile)
