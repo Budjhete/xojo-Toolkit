@@ -50,7 +50,7 @@ Begin BHWindow BHReportXMLViewer
       HasBackColor    =   False
       Height          =   561
       HelpTag         =   ""
-      index           =   -2147483648
+      Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
       LockBottom      =   True
@@ -299,7 +299,9 @@ End
 
 	#tag Method, Flags = &h0
 		Sub MarginsPreview()
-		  cReport.Left = app.PrintConfig
+		  'cReport.Left = app.PrintConfig.leftMargin
+		  'cReport.top = app.PrintConfig.topMargin
+		  'cReport.Width = cReport.
 		End Sub
 	#tag EndMethod
 

@@ -37,7 +37,7 @@ Begin BHViewer BHViewerXSL
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
-      Renderer        =   0
+      Renderer        =   1
       Scope           =   0
       TabIndex        =   0
       TabPanelIndex   =   0
@@ -65,6 +65,12 @@ End
 		  Super.Constructor
 		  mXSL = pXSL
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function DocumentComplete() As Boolean
+		  'Return RaiseEvent DocumentComplete
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -146,22 +152,37 @@ End
 
 	#tag Method, Flags = &h0
 		Function HTML() As String
-		  dim h as string = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>"
+		  'dim h as string = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>"
+		  '
+		  'h = h + EndOfLine + hReportViewer.mainFrameMBS.dataSource.data
+		  if TargetWin32 then
+		    Return hReportViewer.IEHTMLTextMBS
+		  else
+		    Return hReportViewer.mainFrameMBS.dataSource.data
+		  end if
 		  
-		  h = h + EndOfLine + hReportViewer.HTMLTextMBS
-		  
-		  Return h
+		  Exception err as NilObjectException
+		    MsgBox "kSVPReload"
+		    
+		    'Return h
 		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
 		Sub HTML_export(pNomRapport as String = "default")
+		  dim d as new date
+		  dim dt as string = ReplaceAll(d.SQLDateTime, ":", "-")
 		  //sauvegarde du html
-		  dim h as string = "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>"
+		  dim h as string
 		  
-		  h = h + EndOfLine + hReportViewer.HTMLTextMBS
+		  if TargetWin32 then
+		    h = hReportViewer.IEHTMLTextMBS
+		  else
+		    h = hReportViewer.mainFrameMBS.dataSource.data
+		  end if
 		  
-		  dim fp as TextOutputStream = TextOutputStream.Create(SpecialFolder.Desktop.Child(pNomRapport+".html"))
+		  
+		  dim fp as TextOutputStream = TextOutputStream.Create(SpecialFolder.Desktop.Child(pNomRapport + "-" + dt + ".html"))
 		  fp.WriteLine(h)
 		  fp.Close()
 		  MsgBox kLeFichier + "« " + pNomRapport + " »" + kAEteEnregistrerSurVotreBureau
@@ -214,7 +235,7 @@ End
 	#tag Method, Flags = &h0
 		Sub PageSetup_MBS(pShow as Boolean, pNomRapport as String = "default")
 		  // backup print setting
-		  dim printsettingbackup as new NSPrintInfoMBS 
+		  dim printsettingbackup as new NSPrintInfoMBS
 		  printsettingbackup = app.PrintConfig
 		  
 		  page = New PrinterSetup
@@ -420,6 +441,11 @@ End
 	#tag EndMethod
 
 
+	#tag Hook, Flags = &h0
+		Event DocumentComplete()
+	#tag EndHook
+
+
 	#tag Note, Name = README
 		Permet d'afficher le rendu d'un XslObject
 	#tag EndNote
@@ -516,6 +542,11 @@ End
 	#tag Event
 		Sub Open()
 		  
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub DocumentComplete(URL as String)
+		  RaiseEvent DocumentComplete
 		End Sub
 	#tag EndEvent
 #tag EndEvents
