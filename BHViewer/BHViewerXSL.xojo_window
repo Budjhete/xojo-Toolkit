@@ -172,6 +172,7 @@ End
 		Sub HTML_export(pNomRapport as String = "default")
 		  dim d as new date
 		  dim dt as string = ReplaceAll(d.SQLDateTime, ":", "-")
+		  dt = ReplaceAll(dt, "", "_")
 		  //sauvegarde du html
 		  dim h as string
 		  
