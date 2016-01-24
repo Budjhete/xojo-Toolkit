@@ -470,12 +470,12 @@ End
 		  if  cpny.Client().courriel <> "" then
 		    e.FromAddress = cpny.Client().courriel // "etienne@hete.ca" //
 		  else
-		    e.FromAddress = "no-reply@budjhete.com"
+		    e.FromAddress = "no-reply@kanjo.ca"
 		  end if
 		  
 		  
 		  
-		  mHTML = Replace(mHTML, "<head>", "<head><base href=""http://www.budjhete.com/"" />")
+		  mHTML = Replace(mHTML, "<head>", "<head><base href=""http://www.kanjo.ca/"" />")
 		  
 		  
 		  e.BodyHTML = mHTML
