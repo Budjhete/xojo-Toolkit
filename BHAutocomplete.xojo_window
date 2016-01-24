@@ -202,6 +202,7 @@ End
 		    
 		    // On restitue la sélection
 		    gOptions.ListIndex = gOptions.Find(Me.Tag)
+		    me.Tag = nil
 		    
 		    // Ajustement de position
 		    Me.Top = pTextField.Top + pTextField.Height

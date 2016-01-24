@@ -156,7 +156,11 @@ End
 		  '
 		  'h = h + EndOfLine + hReportViewer.mainFrameMBS.dataSource.data
 		  if TargetWin32 then
-		    Return hReportViewer.IEHTMLTextMBS
+		    if hReportViewer.Renderer = 1 then
+		      Return hReportViewer.ChromiumBrowserMBS.MainFrame.Source
+		    else
+		      Return hReportViewer.IEHTMLTextMBS
+		    end if
 		  else
 		    Return hReportViewer.mainFrameMBS.dataSource.data
 		  end if
@@ -335,6 +339,12 @@ End
 	#tag Method, Flags = &h0
 		Sub Print()
 		  System.DebugLog "Impression d'un rapport."
+		  
+		  if TargetWin32 and hReportViewer.Renderer = 1 then
+		    System.DebugLog "Impression sous ChroniumBrowser"
+		    hReportViewer.ChromiumBrowserMBS.MainFrame.print
+		    return
+		  end if
 		  
 		  hReportViewer.Print
 		End Sub
