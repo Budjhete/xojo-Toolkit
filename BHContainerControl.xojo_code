@@ -18,6 +18,13 @@ Implements BHControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub Close()
+		  RaiseEvent Closing()
+		  Super.Close()
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub EnableActions()
 		  RaiseEvent EnableActions
 		End Sub
@@ -26,6 +33,10 @@ Implements BHControl
 
 	#tag Hook, Flags = &h0
 		Event Check() As Boolean
+	#tag EndHook
+
+	#tag Hook, Flags = &h0
+		Event Closing()
 	#tag EndHook
 
 	#tag Hook, Flags = &h0
@@ -188,12 +199,14 @@ Implements BHControl
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
