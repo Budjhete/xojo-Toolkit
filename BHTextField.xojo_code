@@ -76,7 +76,7 @@ Implements BHControl
 		    Return False
 		  End If
 		  
-		  If Date And Not Valid.Date(Text) Then
+		  If Date And Not Valid.ValidDate(Text) Then
 		    Return False
 		  End If
 		  
@@ -422,6 +422,7 @@ Implements BHControl
 			Visible=true
 			Group="ID"
 			Type="Integer"
+			EditorType="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Italic"
@@ -491,6 +492,7 @@ Implements BHControl
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NotEmpty"
@@ -558,6 +560,7 @@ Implements BHControl
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
