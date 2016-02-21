@@ -237,7 +237,7 @@ End
 		  //
 		  // YYYY
 		  // YYYY-MM
-		  If Valid.Regex(Me.Text, "^[0-9]{4}-[0-9]{2}$") Or Valid.Regex(Me.Text, "^[0-9]{4}$") Then
+		  If Valid.ValidRegex(Me.Text, "^[0-9]{4}-[0-9]{2}$") Or Valid.ValidRegex(Me.Text, "^[0-9]{4}$") Then
 		    Me.Text = Me.Text + "-"
 		    Me.SelStart = Len(Me.Text)
 		  End If
