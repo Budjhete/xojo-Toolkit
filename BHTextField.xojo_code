@@ -15,6 +15,7 @@ Implements BHControl
 		Sub Check()
 		  If Not Me.Check Then
 		    TextField(Me).BackColor = ErrorColor
+		    TextField(me).HelpTag = mError
 		  Else
 		    // Reset background color to default
 		    BackColor = mBackColor
@@ -26,82 +27,106 @@ Implements BHControl
 		Function Check() As Boolean
 		  // If it can be empty and it is empty, no need to check other validations
 		  If Not NotEmpty And Not Valid.NotEmpty(Text) Then
+		    'mError = mError + " - Must be Empty"
 		    Return True
 		  End If
 		  
 		  If Not NotNull And Not Valid.NotNull(Text) Then
+		    'mError = mError + " - Must be Null"
 		    Return True
 		  End If
 		  
 		  If NotEmpty And Not Valid.NotEmpty(Text) Then
+		    mError = mError + " - Can't be Empty"
 		    Return False
 		  End If
 		  
 		  If NotNull And Not Valid.NotNull(Tag) Then
+		    mError = mError + " - Can't be Null"
 		    Return False
 		  End If
 		  
 		  If Phone And Not Valid.Phone(Text) Then
+		    mError = mError + " - Phone Invalid"
 		    Return False
 		  End If
 		  
 		  If Email And Not Valid.Email(Text) Then
+		    mError = mError + " - Email not Valid"
+		    
 		    Return False
 		  End If
 		  
 		  If ZipCode And Not Valid.ZipCode(Text) Then
+		    mError = mError + " - ZipCode not Valid"
+		    
 		    Return False
 		  End If
 		  
 		  If Alpha And Numeric And Dash And Not Valid.AlphaNumericDash(Text) Then
+		    mError = mError + " - Must be Alpha, numeric and Dashed"
 		    Return False
 		  ElseIf Alpha And Numeric And Not Dash And Not Valid.AlphaNumeric(Text) Then
+		    mError = mError + " - Must be Alpha, numeric, not Dashed"
 		    Return False
 		  ElseIf Alpha And Not Numeric And Dash And Not Valid.AlphaDash(Text) Then
+		    mError = mError + " - Must be Alpha, not Numeric and Dashed"
 		    Return False
 		  ElseIf Not Alpha And Numeric And Dash And Not Valid.NumericDash(Text) Then
+		    mError = mError + " - Must be not Alpha, numeric and Dashed"
 		    Return False
 		  ElseIf Alpha And Not Numeric And Not Dash And Not Valid.Alpha(Text) Then
+		    mError = mError + " - Must be Alpha and not Numeric and not Dashed"
 		    Return False
 		  ElseIf Numeric And Not Alpha And Not Dash And Not Valid.Numeric(Text) Then
+		    mError = mError + " - Must be not Alpha not Numeric and not Dashed"
 		    Return False
 		  End If
 		  // 'Dash' alone should not exist
 		  
 		  If Digit And Not Valid.Digit(Text) Then
+		    mError = mError + " - Must be Digit"
 		    Return False
 		  End If
 		  
 		  If Decimal And Not Valid.Decimal(Text) Then
+		    mError = mError + " - Must be Decimal"
 		    Return False
 		  End If
 		  
 		  If Date And Not Valid.ValidDate(Text) Then
+		    mError = mError + " - Date not valid"
 		    Return False
 		  End If
 		  
 		  If URL And Not Valid.URL(Text) Then
+		    mError = mError + " - URL not valid"
 		    Return False
 		  End If
 		  
 		  If ZipCode And Not Valid.ZipCode(Text) Then
+		    mError = mError + " - Zip code invalid"
 		    Return False
 		  End If
 		  
 		  If (ExactLength > 0) And Not Valid.ExactLength(Text, ExactLength) Then
+		    mError = mError + " - ExatLength more then zero"
 		    Return False
 		  End If
 		  
 		  If (MinLength > 0) And Not Valid.MinLength(Text, MinLength) Then
+		    mError = mError + " - Minimum Lenght not respected"
 		    Return False
 		  End If
 		  
 		  If (MaxLength > 0) And Not Valid.MinLength(Text, MaxLength) Then
+		    mError = mError + " - Maximum Length not respected"
 		    Return False
 		  End If
 		  
 		  If Range And Not Valid.Range(Text.IntegerValue, RangeMin, RangeMax) Then
-		    Return False
+		    mError = mError + " - Not in range"
+		    return False
 		  End If
 		  
 		  Return Not RaiseEvent Check
@@ -175,6 +200,10 @@ Implements BHControl
 
 	#tag Property, Flags = &h21
 		Private mBackColor As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		mError As String
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -479,6 +508,12 @@ Implements BHControl
 			Group="Validation"
 			InitialValue="0"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="mError"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="MinLength"
