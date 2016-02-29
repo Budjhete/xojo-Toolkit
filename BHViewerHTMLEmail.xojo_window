@@ -473,7 +473,7 @@ End
 		    e.FromAddress = "no-reply@kanjo.ca"
 		  end if
 		  
-		  
+		  e.Headers.AppendHeader "X-Mailer", "Kanjo SMTP Mail Services"
 		  
 		  mHTML = Replace(mHTML, "<head>", "<head><base href=""http://www.kanjo.ca/"" />")
 		  
@@ -485,6 +485,7 @@ End
 		    a = New EmailAttachment
 		    a.loadFromFile mPDF
 		    e.attachments.append a
+		    e.BodyPlainText = "See PDF attachment, Ce courriel a un PDF en attaché"
 		    
 		  Else
 		    e.BodyPlainText = "See html content in this email, Ce courriel est en HTML"
@@ -500,8 +501,13 @@ End
 		    sock.port = 25
 		  end if
 		  
-		  sock.Secure = false
-		  
+		  // SSL
+		  if (Company.Current.Preference("configuration.email.ssl") <> Nil) AND (Company.Current.Preference("configuration.email.ssl") <> "") then
+		    sock.Secure = Company.Current.Preference("configuration.email.ssl")
+		  else
+		    sock.Secure = False
+		    
+		  end if
 		  // On envoie la sauce à pattate juteuse !
 		  sock.SendMail
 		  
@@ -532,7 +538,7 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Error()
-		  dim ErrorString as string
+		  dim ErrorString as string = ""
 		  
 		  Select Case me.LastErrorCode
 		  case 22
@@ -541,16 +547,18 @@ End
 		    ErrorString = kConfigurationURLServerNonValide
 		  End Select
 		  
-		  if me.LastErrorCode<>102 then
-		    System.DebugLog "error "+str(me.LastErrorCode)
-		    System.DebugLog "Address : " + me.Address
-		    System.DebugLog "Port : " + str(me.Port)
-		    System.DebugLog "Password : " + me.Password
-		    System.DebugLog "Username : " + me.Username
-		    System.DebugLog "RemoteAddress : " + me.RemoteAddress
-		    System.DebugLog"Secure : " + str(me.Secure)
-		    lbErreur.Text = "kerror "+str(me.LastErrorCode) + " : " + ErrorString
+		  if me.LastErrorCode <> 102 then
+		    lbErreur.Text = "Status : "+str(me.LastErrorCode) + " : " + ErrorString
+		    
 		  end if
+		  
+		  System.DebugLog "error "+str(me.LastErrorCode)
+		  System.DebugLog "Address : " + me.Address
+		  System.DebugLog "Port : " + str(me.Port)
+		  System.DebugLog "Password : " + me.Password
+		  System.DebugLog "Username : " + me.Username
+		  System.DebugLog "RemoteAddress : " + me.RemoteAddress
+		  System.DebugLog "Secure : " + str(me.Secure)
 		  
 		  ProgressWheel1.Visible = false
 		End Sub
