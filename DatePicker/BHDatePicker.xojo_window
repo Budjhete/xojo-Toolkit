@@ -8,23 +8,23 @@ Begin BHContainerControl BHDatePicker
    Compatibility   =   ""
    Enabled         =   True
    EraseBackground =   True
-   HasBackColor    =   False
-   Height          =   22
+   HasBackColor    =   True
+   Height          =   246
    HelpTag         =   ""
    InitialParent   =   ""
    Left            =   0
    LockBottom      =   False
    LockLeft        =   False
-   LockRight       =   True
-   LockTop         =   True
+   LockRight       =   False
+   LockTop         =   False
    TabIndex        =   0
    TabPanelIndex   =   0
    TabStop         =   True
    Top             =   0
-   Transparent     =   True
+   Transparent     =   False
    UseFocusRing    =   False
    Visible         =   True
-   Width           =   125
+   Width           =   181
    Begin BHTextField tDate
       AcceptTabs      =   False
       Alignment       =   0
@@ -50,15 +50,16 @@ Begin BHContainerControl BHDatePicker
       HelpTag         =   ""
       Index           =   -2147483648
       Italic          =   False
-      Left            =   0
+      Left            =   16
       LimitText       =   10
-      LockBottom      =   True
+      LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
       Mask            =   ""
       MaxLength       =   0
+      mError          =   ""
       MinLength       =   0
       NotEmpty        =   False
       Numeric         =   False
@@ -83,7 +84,7 @@ Begin BHContainerControl BHDatePicker
       URL             =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   105
+      Width           =   148
       ZipCode         =   False
    End
    Begin UpDownArrows udPicker
@@ -94,7 +95,7 @@ Begin BHContainerControl BHDatePicker
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   112
+      Left            =   168
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   False
@@ -107,6 +108,62 @@ Begin BHContainerControl BHDatePicker
       Top             =   0
       Visible         =   True
       Width           =   13
+   End
+   Begin BHCalendarControl PopUpCalendar
+      AcceptFocus     =   False
+      AcceptTabs      =   True
+      AutoDeactivate  =   True
+      BackColor       =   &cFDFDFD00
+      Backdrop        =   0
+      Enabled         =   True
+      EndYear         =   0
+      EraseBackground =   False
+      HasBackColor    =   True
+      Height          =   220
+      HelpTag         =   ""
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      mHeight         =   180
+      mWidth          =   220
+      Scope           =   2
+      StartYear       =   0
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   23
+      Transparent     =   False
+      UseFocusRing    =   False
+      Visible         =   True
+      Width           =   180
+   End
+   Begin DisclosureTriangle DisclosureTriangle1
+      AcceptFocus     =   False
+      AutoDeactivate  =   True
+      Enabled         =   True
+      Facing          =   0
+      Height          =   18
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   2
+      Value           =   False
+      Visible         =   True
+      Width           =   18
    End
 End
 #tag EndWindow
@@ -212,6 +269,18 @@ End
 
 	#tag Property, Flags = &h21
 		Private mDate As Date
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		mHeight As Integer
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		mOriginalText As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		mWidth As Integer
 	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
@@ -338,6 +407,14 @@ End
 		      
 		    End Select
 		    
+		  Case 27 //  ESC
+		    
+		    // Cancel selection
+		    
+		    Me.Text = mOriginalText
+		    DisclosureTriangle1.Value = false
+		    Return true
+		    
 		  Case 29 // RIGHT
 		    
 		    Select Case Me.SelStart
@@ -388,6 +465,50 @@ End
 		  End If
 		  
 		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events PopUpCalendar
+	#tag Event
+		Sub Open()
+		  me.mRectControl = tDate
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Changed()
+		  Date = me.mSelectedDate
+		  self.Width = mWidth
+		  self.Height = mHeight
+		  DisclosureTriangle1.Value = false
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		  g.ForeColor = &cB4B4B400
+		  g.DrawRect(0, 0, g.Width, g.Height)
+		  g.ForeColor = &cFAFAFA00
+		  g.FillRect(0, 0, g.Width, g.Height)
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events DisclosureTriangle1
+	#tag Event
+		Sub Action()
+		  
+		  if me.value then
+		    self.mHeight = self.Height
+		    self.mWidth = self.Width
+		    mOriginalText = tDate.Text
+		    PopUpCalendar.show
+		    
+		    self.Height = 243
+		    self.Width = 180
+		  else
+		    PopUpCalendar.Visible = false
+		    self.Width = mWidth
+		    self.Height = mHeight
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -499,6 +620,22 @@ End
 		Visible=true
 		Group="Position"
 		Type="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="mHeight"
+		Group="Behavior"
+		Type="Integer"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="mOriginalText"
+		Group="Behavior"
+		Type="String"
+		EditorType="MultiLineEditor"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="mWidth"
+		Group="Behavior"
+		Type="Integer"
 	#tag EndViewProperty
 	#tag ViewProperty
 		Name="Name"

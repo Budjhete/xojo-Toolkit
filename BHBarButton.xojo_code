@@ -1,5 +1,5 @@
 #tag Class
-Protected Class BarButton
+Protected Class BHBarButton
 Inherits Canvas
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
@@ -31,12 +31,12 @@ Inherits Canvas
 
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  ' fond (bottom)
-		  g.ForeColor = IIF(EstActif, RGB(170,170,170), RGB(238,238,238))
+		  ' fond
+		  g.ForeColor = IIF(EstActif, BottomColorActive, BottomColor)
 		  g.FillRect(0, 0, g.Width, g.Height)
 		  
-		  ' highlight (top)
-		  g.ForeColor = IIF(EstActif, RGB(189,189,189), RGB(253,253,253))
+		  ' highlight
+		  g.ForeColor = IIF(EstActif, TopColorActive, TopColor)
 		  g.FillRect(0, 0, g.Width, g.Height/2)
 		  
 		  'dim size as Integer = 0
@@ -88,7 +88,7 @@ Inherits Canvas
 		  end
 		  
 		  if BorderLeft then
-		    g.DrawRect(0, 0, 0, g.Height)
+		    g.DrawRect(0, 0, 1, g.Height)
 		  end
 		End Sub
 	#tag EndEvent
@@ -155,6 +155,46 @@ Inherits Canvas
 		BorderTop As Boolean = True
 	#tag EndProperty
 
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  if CustomColor then
+			    return mBottomColor
+			  else
+			    return RGB(238,238,238)
+			  end if
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mBottomColor = value
+			End Set
+		#tag EndSetter
+		BottomColor As color
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  if CustomColor then
+			    return mBottomColorActive
+			  else
+			    return RGB(170,170,170)
+			  end if
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mBottomColorActive = value
+			End Set
+		#tag EndSetter
+		BottomColorActive As color
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h0
+		CustomColor As Boolean = False
+	#tag EndProperty
+
 	#tag ComputedProperty, Flags = &h21
 		#tag Getter
 			Get
@@ -195,7 +235,23 @@ Inherits Canvas
 	#tag EndComputedProperty
 
 	#tag Property, Flags = &h21
+		Private mBottomColor As color = &cEEEEEE00
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mBottomColorActive As color = &cAAAAAA00
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
 		Private mLabel As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mTopColor As color = &cFDFDFD00
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mTopColorActive As color = &cBDBDBD00
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -205,6 +261,42 @@ Inherits Canvas
 	#tag Property, Flags = &h0
 		Tag As String
 	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  if CustomColor then
+			    return mTopColor
+			  else
+			    return RGB(253,253,253)
+			  end if
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mTopColor = value
+			End Set
+		#tag EndSetter
+		TopColor As color
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  if CustomColor then
+			    return mTopColorActive
+			  else
+			    return RGB(189,189,189)
+			  end if
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mTopColorActive = value
+			End Set
+		#tag EndSetter
+		TopColorActive As color
+	#tag EndComputedProperty
 
 
 	#tag Constant, Name = kIconTextSpace, Type = Double, Dynamic = False, Default = \"5", Scope = Public
@@ -267,6 +359,27 @@ Inherits Canvas
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="BottomColor"
+			Visible=true
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="BottomColorActive"
+			Visible=true
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="CustomColor"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="DoubleBuffer"
 			Visible=true
 			Group="Behavior"
@@ -310,6 +423,7 @@ Inherits Canvas
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
+			Group="Position"
 			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -400,6 +514,20 @@ Inherits Canvas
 			Visible=true
 			Group="Position"
 			Type="Integer"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TopColor"
+			Visible=true
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="TopColorActive"
+			Visible=true
+			Group="Behavior"
+			InitialValue="&c000000"
+			Type="color"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Transparent"

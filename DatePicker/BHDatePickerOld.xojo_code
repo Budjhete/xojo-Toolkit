@@ -672,6 +672,12 @@ Inherits BHTextField
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="mError"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="MinLength"
 			Visible=true
 			Group="Validation"
