@@ -21,7 +21,7 @@ Begin BHContainerControl BHDatePicker
    TabPanelIndex   =   0
    TabStop         =   True
    Top             =   0
-   Transparent     =   False
+   Transparent     =   True
    UseFocusRing    =   False
    Visible         =   True
    Width           =   181
@@ -484,9 +484,9 @@ End
 	#tag EndEvent
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  g.ForeColor = &cB4B4B400
+		  g.ForeColor = RGB(180,180,180)
 		  g.DrawRect(0, 0, g.Width, g.Height)
-		  g.ForeColor = &cFAFAFA00
+		  g.ForeColor = RGB(250,250,250)
 		  g.FillRect(0, 0, g.Width, g.Height)
 		  
 		End Sub
