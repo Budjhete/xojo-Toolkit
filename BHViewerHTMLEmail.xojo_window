@@ -122,6 +122,7 @@ Begin BHWindow BHViewerHTMLEmail
       LockTop         =   True
       Mask            =   ""
       MaxLength       =   0
+      mError          =   ""
       MinLength       =   0
       NotEmpty        =   True
       Numeric         =   False
@@ -218,6 +219,7 @@ Begin BHWindow BHViewerHTMLEmail
       LockTop         =   True
       Mask            =   ""
       MaxLength       =   0
+      mError          =   ""
       MinLength       =   0
       NotEmpty        =   True
       Numeric         =   False
@@ -286,18 +288,13 @@ Begin BHWindow BHViewerHTMLEmail
       CertificateRejectionFile=   
       ConnectionType  =   2
       Enabled         =   True
-      Height          =   "32"
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   885
       LockedInPosition=   False
       Scope           =   0
       Secure          =   False
       SMTPConnectionMode=   0
       TabPanelIndex   =   0
-      Top             =   53
-      Visible         =   True
-      Width           =   "32"
    End
    Begin ProgressWheel ProgressWheel1
       AutoDeactivate  =   True
@@ -322,18 +319,13 @@ Begin BHWindow BHViewerHTMLEmail
    End
    Begin Timer Timer1
       Enabled         =   True
-      Height          =   "32"
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   0
       LockedInPosition=   False
       Mode            =   0
       Period          =   1000
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   0
-      Visible         =   True
-      Width           =   "32"
    End
    Begin Label lbErreur
       AutoDeactivate  =   True
@@ -616,7 +608,7 @@ End
 		  If mPDF <> Nil then
 		    strAttachmentName = mPDF.Name
 		  end if
-		  dim strCC, strBCC, strReadyToSend as String = ""
+		  dim strCC, strBCC as String = ""
 		  
 		  'Construct the Body - Dealing with Cross Platform Differences
 		  strEmailBody = strEmailBody + Encodings.UTF8.Chr(13) + Encodings.UTF8.Chr(13) + strEmailSignature

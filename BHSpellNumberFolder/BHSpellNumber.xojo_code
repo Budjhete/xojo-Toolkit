@@ -112,7 +112,7 @@ Protected Class BHSpellNumber
 
 	#tag Method, Flags = &h0
 		 Shared Function ToText(NumberIn as Double, strCurr as String = "") As String
-		  Dim Dollars, Cents, Temp As String
+		  Dim Dollars, Temp As String
 		  Dim DecimalPlace, Count As Integer
 		  Dim MyNumber As String
 		  Dim Place(9) As String

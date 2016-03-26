@@ -213,7 +213,7 @@ Inherits TextField
 		      End If
 		      
 		    Case 3
-		      Dim test as string = Mid(MyText,2,1)
+		      'Dim test as string = Mid(MyText,2,1)
 		      
 		      If MyKey = "0" Then
 		        If Left(MyText,2) = "24" Then

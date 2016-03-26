@@ -12,7 +12,6 @@ Implements BHControl
 		    dim mX as Integer = Me.ScreenX()
 		    dim mY as Integer = Me.ScreenY() + Me.Height
 		    
-		    dim m as MenuItem = mMenu.PopUp(mX, mY)
 		  end
 		  
 		  return true

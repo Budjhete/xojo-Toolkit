@@ -972,8 +972,6 @@ Implements BHControl
 		  Dim pXmlNode As XmlNode = pXmlDocument.CreateElement("list")
 		  
 		  Dim node As XmlNode
-		  Dim pDate as new Date()
-		  
 		  // Headers (columns with a width < 0px are hidden)
 		  For pIndex As Integer = 0 To Me.ColumnCount - 1
 		    If Me.Column(pIndex).WidthActual > 0 Then

@@ -78,37 +78,23 @@ Begin Window SuggestionWindow
    End
    Begin Timer TimerClose
       Enabled         =   True
-      Height          =   "32"
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   132
       LockedInPosition=   False
       Mode            =   0
       Period          =   10
       Scope           =   0
-      TabIndex        =   "1"
       TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   0
-      Visible         =   True
-      Width           =   "32"
    End
    Begin Timer TimerFocus
       Enabled         =   True
-      Height          =   "32"
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   176
       LockedInPosition=   False
       Mode            =   0
       Period          =   10
       Scope           =   0
-      TabIndex        =   "2"
       TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   0
-      Visible         =   True
-      Width           =   "32"
    End
 End
 #tag EndWindow

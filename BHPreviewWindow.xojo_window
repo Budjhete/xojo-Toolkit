@@ -82,7 +82,6 @@ Begin Window BHPreviewWindow
       TabStop         =   True
       Top             =   0
       Transparent     =   True
-      Untitled        =   0
       UseFocusRing    =   False
       Visible         =   True
       Width           =   910

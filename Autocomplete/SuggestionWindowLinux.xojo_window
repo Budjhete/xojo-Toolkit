@@ -113,6 +113,7 @@ Begin Window SuggestionWindowLinux
       LockTop         =   False
       Mask            =   ""
       MaxLength       =   0
+      mError          =   ""
       MinLength       =   0
       NotEmpty        =   False
       NotifyIfEmpty   =   False
@@ -143,37 +144,23 @@ Begin Window SuggestionWindowLinux
    End
    Begin Timer TimerClose
       Enabled         =   True
-      Height          =   "32"
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   704
       LockedInPosition=   False
       Mode            =   0
       Period          =   10
       Scope           =   0
-      TabIndex        =   "2"
       TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   -29
-      Visible         =   True
-      Width           =   "32"
    End
    Begin Timer TimerFocus
       Enabled         =   True
-      Height          =   "32"
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   748
       LockedInPosition=   False
       Mode            =   0
       Period          =   10
       Scope           =   0
-      TabIndex        =   "3"
       TabPanelIndex   =   0
-      TabStop         =   True
-      Top             =   -29
-      Visible         =   True
-      Width           =   "32"
    End
 End
 #tag EndWindow

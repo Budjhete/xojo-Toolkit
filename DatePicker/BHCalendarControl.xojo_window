@@ -2120,8 +2120,6 @@ End
 		Private Sub Update()
 		  MonthPopup.ListIndex = mSelectedDate.Month-1
 		  
-		  dim today as new Date
-		  
 		  If mSelectedDate.Year >= StartYear And mSelectedDate.Year <= EndYear Then
 		    YearPopup.ListIndex = mSelectedDate.Year-StartYear
 		  ElseIf mSelectedDate.Year > EndYear Then

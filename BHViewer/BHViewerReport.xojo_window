@@ -50,7 +50,6 @@ Begin BHViewer BHViewerReport
       TabStop         =   True
       Top             =   0
       Transparent     =   True
-      Untitled        =   0
       UseFocusRing    =   True
       Visible         =   False
       Width           =   605

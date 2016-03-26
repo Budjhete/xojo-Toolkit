@@ -95,6 +95,7 @@ Begin ContainerControl BHPictureContainer
       LockLeft        =   True
       LockRight       =   True
       LockTop         =   True
+      mIgnoreChanges  =   False
       NotEmpty        =   False
       ReadOnly        =   False
       RequiresSelection=   False
@@ -295,7 +296,7 @@ End
 	#tag Event
 		Function CellTextPaint(g As Graphics, row As Integer, column As Integer, x as Integer, y as Integer) As Boolean
 		  If column = 0 Then
-		    Dim var As Variant = Me.RowTag(row)
+		    'Dim var As Variant = Me.RowTag(row)
 		    // g.DrawPicture(mMiniThumbnails.Value(Me.RowTag(row)), 0, 0)
 		    Return True
 		  End If
@@ -308,7 +309,6 @@ End
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  g.DrawPicture(mThumbnail, 0, 0)
-		  Dim foo As Boolean
 		End Sub
 	#tag EndEvent
 #tag EndEvents

@@ -279,6 +279,10 @@ End
 		mOriginalText As String
 	#tag EndProperty
 
+	#tag Property, Flags = &h21
+		Private mShowPopUp As Boolean = true
+	#tag EndProperty
+
 	#tag Property, Flags = &h0
 		mWidth As Integer
 	#tag EndProperty
@@ -295,6 +299,24 @@ End
 			End Set
 		#tag EndSetter
 		NotEmpty As Boolean
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  
+			  return mShowPopUp
+			  
+			  
+			  /// JE VEUX METTRE LE DisclosureTriangle EN OPTION
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mShowPopUp = value
+			End Set
+		#tag EndSetter
+		ShowPopUp As Boolean
 	#tag EndComputedProperty
 
 
@@ -649,6 +671,11 @@ End
 		Visible=true
 		Group="Validation"
 		InitialValue="False"
+		Type="Boolean"
+	#tag EndViewProperty
+	#tag ViewProperty
+		Name="ShowPopUp"
+		Group="Behavior"
 		Type="Boolean"
 	#tag EndViewProperty
 	#tag ViewProperty

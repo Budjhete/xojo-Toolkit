@@ -21,6 +21,12 @@ Implements View
 		End Function
 	#tag EndMethod
 
+	#tag Method, Flags = &h0
+		Function Company() As Company
+		  return mCompany
+		End Function
+	#tag EndMethod
+
 	#tag Method, Flags = &h1000
 		Sub Constructor()
 		  // Calling the overridden superclass constructor.
@@ -34,7 +40,7 @@ Implements View
 		      m = NewMemoryBlock(3)
 		      m.short(0) = 5
 		      m.Byte(2) = 0
-		      dim OSErr as integer = HIWindowChangeAttributes(self, m, nil)
+		      'dim OSErr as integer = HIWindowChangeAttributes(self, m, nil)
 		      
 		      me.LiveResize = True
 		    end if
@@ -83,6 +89,10 @@ Implements View
 		Event Show()
 	#tag EndHook
 
+
+	#tag Property, Flags = &h0
+		mCompany As Company
+	#tag EndProperty
 
 	#tag Property, Flags = &h0
 		OverrideTitleMenu As String

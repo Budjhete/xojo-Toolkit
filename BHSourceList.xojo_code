@@ -382,6 +382,12 @@ Inherits BHListbox
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="mIgnoreChanges"
+			Group="Behavior"
+			InitialValue="false"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Name"
 			Visible=true
 			Group="ID"

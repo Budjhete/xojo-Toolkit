@@ -27,17 +27,14 @@ Begin BHWindow BHReportXMLViewer
    Visible         =   True
    Width           =   882
    Begin OptionTimer TheAltKey
-      Height          =   32
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   0
       LockedInPosition=   False
       Mode            =   2
       Period          =   250
       Scope           =   0
       TabPanelIndex   =   0
-      Top             =   0
-      Width           =   32
    End
    Begin BHViewerXSL cReport
       AcceptFocus     =   False
