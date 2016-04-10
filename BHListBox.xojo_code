@@ -872,6 +872,8 @@ Implements BHControl
 	#tag Method, Flags = &h0
 		Function RowTag() As Variant
 		  Return Super.RowTag(Me.ListIndex)  // FIXME #7964
+		  
+		  // vérifier que votre row n'est pas au listindex -1 !
 		End Function
 	#tag EndMethod
 
