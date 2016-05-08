@@ -432,6 +432,26 @@ Implements BHControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Columns() As string()
+		  if Columns.Ubound <> -1 then return Columns
+		  
+		  dim ColumnsHeaderName() as string
+		  if me.HasHeading = true then
+		    For pCol As Integer = 0 To Me.ColumnCount - 1
+		      ColumnsHeaderName.Append(me.Heading(pCol))
+		    Next
+		  else
+		    For pCol As Integer = 0 To Me.ColumnCount - 1
+		      ColumnsHeaderName.Append(pCol.StringValue)
+		    Next
+		  end if
+		  
+		  Columns = ColumnsHeaderName
+		  Return ColumnsHeaderName()
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function ColumnSortType(column as Integer) As Integer
 		  if column < 0 then
 		    Raise new OutOfBoundsException
@@ -973,26 +993,67 @@ Implements BHControl
 		  
 		  Dim pXmlNode As XmlNode = pXmlDocument.CreateElement("list")
 		  
-		  Dim node As XmlNode
+		  Dim node, subnode As XmlNode
+		  
+		  
+		  
+		  
+		  dim c as integer
 		  // Headers (columns with a width < 0px are hidden)
 		  For pIndex As Integer = 0 To Me.ColumnCount - 1
 		    If Me.Column(pIndex).WidthActual > 0 Then
+		      c = c + 1
 		      node = pXmlNode.AppendChild(pXmlDocument.CreateElement("header"))
 		      node.AppendChild(pXmlDocument.CreateTextNode(Me.Heading(pIndex)))
 		    End If
 		  Next
 		  
+		  'For pIndex As Integer = 0 To bList.ColumnCount - 1
+		  'If bList.Heading(pIndex) <> "." And bList.Heading(pIndex) <> " " And (bList.Column(pIndex).WidthActual > 0) Then
+		  'node = pXml.FirstChild.AppendChild(pXml.CreateElement("header"))
+		  'node.AppendChild(pXml.CreateTextNode(bList.Heading(pIndex)))
+		  'End If
+		  'Next
+		  
+		  dim t(50) as Currency
+		  
+		  
+		  
+		  
 		  // Content
 		  For pRow As Integer = 0 To Me.ListCount - 1
-		    node = pXmlNode.AppendChild(pXmlDocument.CreateElement("row"))
+		    node = pXmlNode.AppendChild(pXmlDocument.CreateElement("entry"))
 		    
 		    Dim pColumnIndex As Integer = 0
-		    For Each pField As String In Me.Columns
+		    
+		    
+		    For Each pField As String In me.Columns
 		      If Me.Column(pColumnIndex).WidthActual > 0 Then
-		        node.SetAttribute(pField, Me.Cell(pRow, pColumnIndex))
+		        subnode = node.AppendChild(pXmlDocument.CreateElement(pField))
+		        if IsNumeric(me.Cell(pRow, pColumnIndex)) and pColumnIndex > 0 then
+		          subnode.AppendChild(pXmlDocument.CreateTextNode(me.Cell(pRow, pColumnIndex)))
+		          subnode.SetAttribute("textalign","right")
+		          t(pColumnIndex) = t(pColumnIndex) + me.Cell(pRow, pColumnIndex).currencyvalue
+		        else
+		          subnode.AppendChild(pXmlDocument.CreateTextNode(me.Cell(pRow, pColumnIndex)))
+		        End If
+		        
 		      End If
 		      pColumnIndex = pColumnIndex + 1
 		    Next
+		  Next
+		  
+		  node = pXmlNode.AppendChild(pXmlDocument.CreateElement("footer"))
+		  dim i as integer
+		  For Each tt as Currency in t
+		    if i = c then exit
+		    subnode = node.AppendChild(pXmlDocument.CreateElement(me.Columns(i)))
+		    
+		    if tt <> 0 then 
+		      subnode.AppendChild(pXmlDocument.CreateTextNode(tt.XSLValue))
+		    end if
+		    
+		    i = i + 1
 		  Next
 		  
 		  Return pXmlNode
