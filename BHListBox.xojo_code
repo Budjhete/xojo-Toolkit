@@ -555,8 +555,12 @@ Implements BHControl
 
 	#tag Method, Flags = &h0
 		Sub DeleteAllRows()
+		  System.DebugLog me.Name + " : prepare to delete all row"
 		  Super.DeleteAllRows()
+		  System.DebugLog me.Name + " : All row deleted"
+		  
 		  mRowSelected = -1 //Me.ListIndex  // wtf ?! si tu deletes tout, comment peux-tu avoir un listindex ?!
+		  System.DebugLog me.Name + " : remove selection (list index -1)"
 		  
 		End Sub
 	#tag EndMethod
