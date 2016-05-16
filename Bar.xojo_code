@@ -4,11 +4,19 @@ Inherits Canvas
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
 		  ' fond
-		  g.ForeColor = RGB(238,238,238)
+		  if ForeColor = &c000000 then
+		    g.ForeColor = RGB(238,238,238)
+		  else
+		    g.ForeColor = ForeColor
+		  end if
 		  g.FillRect(0, 0, g.Width, g.Height)
 		  
 		  ' highlight
-		  g.ForeColor = RGB(253,253,253)
+		  if ForeTopColor = &c000000 then
+		    g.ForeColor = RGB(253,253,253)
+		  else
+		    g.ForeColor = ForeTopColor
+		  end if
 		  g.FillRect(0, 0, g.Width, g.Height/2)
 		  
 		  if Resizeable then
@@ -33,6 +41,44 @@ Inherits Canvas
 		End Sub
 	#tag EndEvent
 
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return mForeColor
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mForeColor = value
+			  Refresh()
+			End Set
+		#tag EndSetter
+		ForeColor As Color
+	#tag EndComputedProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return mForeTopColor
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mForeTopColor = value
+			  Refresh
+			End Set
+		#tag EndSetter
+		ForeTopColor As Color
+	#tag EndComputedProperty
+
+	#tag Property, Flags = &h21
+		Private mForeColor As Color
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mForeTopColor As Color
+	#tag EndProperty
 
 	#tag Property, Flags = &h21
 		Private mResizeable As Boolean = False
