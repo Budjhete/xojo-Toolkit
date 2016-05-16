@@ -27,7 +27,6 @@ Begin BHWindow BHReportXMLViewer
    Visible         =   True
    Width           =   882
    Begin OptionTimer TheAltKey
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -47,7 +46,7 @@ Begin BHWindow BHReportXMLViewer
       HasBackColor    =   False
       Height          =   561
       HelpTag         =   ""
-      Index           =   -2147483648
+      index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
       LockBottom      =   True
@@ -242,6 +241,40 @@ Begin BHWindow BHReportXMLViewer
          Visible         =   True
          Width           =   123
       End
+      Begin Label Label1
+         AutoDeactivate  =   True
+         Bold            =   False
+         DataField       =   ""
+         DataSource      =   ""
+         Enabled         =   True
+         Height          =   20
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Canvas1"
+         Italic          =   False
+         Left            =   308
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Multiline       =   False
+         Scope           =   0
+         Selectable      =   False
+         TabIndex        =   4
+         TabPanelIndex   =   0
+         Text            =   "#kPreviewBeforeSave"
+         TextAlign       =   0
+         TextColor       =   &cE0E0E000
+         TextFont        =   "System"
+         TextSize        =   0.0
+         TextUnit        =   0
+         Top             =   563
+         Transparent     =   True
+         Underline       =   False
+         Visible         =   True
+         Width           =   317
+      End
    End
 End
 #tag EndWindow
@@ -253,13 +286,21 @@ End
 		  
 		  mXsl = pXsl
 		  mNomRapport = pNomRapport
-		  mPreview = pPreview
+		  mPreview = not pPreview
 		  mEmail = pEmail
 		  
 		  pbImrimper.Enabled = not mPreview
-		  
+		  BevelButton1.Enabled = not mPreview
 		  cReport.Xsl = mXsl
 		  
+		  Label1.Visible = mPreview
+		  
+		  if mPreview then
+		    
+		    Canvas1.ForeColor = RGB(157,5,0)
+		    canvas1.ForeTopColor = RGB(127,4,0)
+		    
+		  end if
 		End Sub
 	#tag EndMethod
 
@@ -356,6 +397,8 @@ End
 #tag Events BevelButton1
 	#tag Event
 		Sub Open()
+		  
+		  
 		  #if TargetMacOS then
 		    me.AddRow(kEnvoyerPDFParCourriel)
 		  #endif
@@ -367,6 +410,7 @@ End
 		  #endif
 		  
 		  me.AddRow(kEnregistrerHTMLSurLeBureau)
+		  
 		End Sub
 	#tag EndEvent
 	#tag Event
