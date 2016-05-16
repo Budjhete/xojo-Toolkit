@@ -219,7 +219,7 @@ End
 		    pTextField.Text = mSelectedText
 		    Me.Tag = mSelectedTag
 		    
-		    RaiseEvent Change
+		    'RaiseEvent Change
 		    
 		  Case 27 //  ESC
 		    
@@ -266,6 +266,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub TextChange(pTextField As TextField)
+		  System.DebugLog "BHAutocomplete.textchange DeleteAllRows" + self.Parent.Name
 		  gOptions.DeleteAllRows
 		  
 		  RaiseEvent Update
