@@ -2109,6 +2109,8 @@ End
 		  'me.left = RectControl.left
 		  'me.Height = mHeight 
 		  'me.Width = mWidth
+		  me.HasBackColor = true
+		  me.BackColor = rgb(100,100,100)
 		  
 		  LoadYearPopup
 		  
@@ -2329,7 +2331,7 @@ End
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"November"
 	#tag EndConstant
 
-	#tag Constant, Name = kOctobre, Type = String, Dynamic = True, Default = \"Octobre", Scope = Private
+	#tag Constant, Name = kOctober, Type = String, Dynamic = True, Default = \"Octobre", Scope = Private
 		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Octobre"
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"October"
 	#tag EndConstant
@@ -2382,7 +2384,7 @@ End
 #tag EndEvents
 #tag Events CalendarDateButton
 	#tag Event
-		Sub Action()
+		Sub Action(index as Integer)
 		  #Pragma Unused Index
 		  
 		  //day has been chosen
