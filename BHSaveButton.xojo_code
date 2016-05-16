@@ -4,6 +4,7 @@ Inherits Canvas
 Implements BHControl
 	#tag Event
 		Function MouseDown(X As Integer, Y As Integer) As Boolean
+		  System.DebugLog "save button pressed"
 		  Pressed = True
 		  
 		  Return True
@@ -12,6 +13,7 @@ Implements BHControl
 
 	#tag Event
 		Sub MouseUp(X As Integer, Y As Integer)
+		  System.DebugLog "savebutton upping"
 		  If (X >= 0 And Y >= 0 And X < Width And Y < Height) Then
 		    WindowCompagnie(Self.TrueWindow).FocusNext
 		    If WindowCompagnie(Self.TrueWindow).Panel.Changed And WindowCompagnie(Self.TrueWindow).Panel.Check Then
@@ -30,6 +32,7 @@ Implements BHControl
 		  End If
 		  
 		  Pressed = False
+		  System.DebugLog "save button up"
 		End Sub
 	#tag EndEvent
 
