@@ -219,7 +219,7 @@ End
 		    pTextField.Text = mSelectedText
 		    Me.Tag = mSelectedTag
 		    
-		    'RaiseEvent Change
+		    RaiseEvent Change
 		    
 		  Case 27 //  ESC
 		    
