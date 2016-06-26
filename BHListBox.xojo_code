@@ -333,6 +333,25 @@ Implements BHControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CellType(row As Integer, column As String) As Integer
+		  dim c as integer = Me.Columns.IndexOf(column)
+		  If Super.CellType(row, c) = BHListBox.TypeDefault Then
+		    Return Me.ColumnType(c)
+		  End If
+		  
+		  Return Super.CellType(row, c)
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub CellType(row As Integer, column As String, Assigns pType As Integer)
+		  dim c as integer = Me.Columns.IndexOf(column)
+		  Me.ColumnType(c) = pType
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Check() As Boolean
 		  If Me.NotEmpty And Me.ListCount = 0 Then
 		    Return False
