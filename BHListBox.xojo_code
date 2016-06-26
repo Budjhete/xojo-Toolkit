@@ -333,6 +333,12 @@ Implements BHControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub CellType(row As Integer, column As Integer, Assigns pType as Integer)
+		  Super.CellType(row, column) = pType
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CellType(row As Integer, column As String) As Integer
 		  dim c as integer = Me.Columns.IndexOf(column)
 		  If Super.CellType(row, c) = BHListBox.TypeDefault Then
