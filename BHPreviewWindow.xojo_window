@@ -245,7 +245,11 @@ End
 		Sub Action()
 		  dim html as string
 		  if TargetWin32 then
-		    html = cHTMLViewerReport.hReportViewer.IEHTMLTextMBS
+		    if cHTMLViewerReport.hReportViewer.Renderer = 1 then
+		      html = cHTMLViewerReport.hReportViewer.ChromiumBrowserMBS.MainFrame.Source
+		    else
+		      html = cHTMLViewerReport.hReportViewer.IEHTMLTextMBS
+		    end if
 		  else
 		    html = cHTMLViewerReport.hReportViewer.mainFrameMBS.dataSource.data
 		  end if

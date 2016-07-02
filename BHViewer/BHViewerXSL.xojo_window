@@ -181,7 +181,11 @@ End
 		  dim h as string
 		  
 		  if TargetWin32 then
-		    h = hReportViewer.IEHTMLTextMBS
+		    if hReportViewer.Renderer = 1 then
+		      h = hReportViewer.ChromiumBrowserMBS.MainFrame.Source
+		    else
+		      h = hReportViewer.IEHTMLTextMBS
+		    end if
 		  else
 		    h = hReportViewer.mainFrameMBS.dataSource.data
 		  end if
