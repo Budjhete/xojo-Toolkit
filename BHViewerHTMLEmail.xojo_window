@@ -9,7 +9,7 @@ Begin BHWindow BHViewerHTMLEmail
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   180
+   Height          =   184
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -25,7 +25,7 @@ Begin BHWindow BHViewerHTMLEmail
    Resizeable      =   True
    Title           =   "kEnvoyerParCourriel"
    Visible         =   True
-   Width           =   336
+   Width           =   344
    Begin PushButton pbEnvoyer
       AutoDeactivate  =   True
       Bold            =   False
@@ -39,7 +39,7 @@ Begin BHWindow BHViewerHTMLEmail
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
-      Left            =   228
+      Left            =   236
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -52,7 +52,7 @@ Begin BHWindow BHViewerHTMLEmail
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   140
+      Top             =   144
       Underline       =   False
       Visible         =   True
       Width           =   88
@@ -83,7 +83,7 @@ Begin BHWindow BHViewerHTMLEmail
       TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
-      Top             =   140
+      Top             =   144
       Underline       =   False
       Visible         =   True
       Width           =   80
@@ -147,7 +147,7 @@ Begin BHWindow BHViewerHTMLEmail
       URL             =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   296
+      Width           =   304
       ZipCode         =   False
    End
    Begin Label lbNomUtilisateur
@@ -172,7 +172,6 @@ Begin BHWindow BHViewerHTMLEmail
       Selectable      =   False
       TabIndex        =   3
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kCourrielDestinataire"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -244,7 +243,7 @@ Begin BHWindow BHViewerHTMLEmail
       URL             =   False
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   296
+      Width           =   304
       ZipCode         =   False
    End
    Begin Label lbSujet
@@ -269,7 +268,6 @@ Begin BHWindow BHViewerHTMLEmail
       Selectable      =   False
       TabIndex        =   5
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   "#kSujet"
       TextAlign       =   0
       TextColor       =   &c00000000
@@ -287,7 +285,6 @@ Begin BHWindow BHViewerHTMLEmail
       CertificatePassword=   ""
       CertificateRejectionFile=   
       ConnectionType  =   2
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -303,22 +300,21 @@ Begin BHWindow BHViewerHTMLEmail
       HelpTag         =   ""
       Index           =   -2147483648
       InitialParent   =   ""
-      Left            =   200
-      LockBottom      =   False
+      Left            =   208
+      LockBottom      =   True
       LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
       Scope           =   0
       TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   142
+      Top             =   146
       Visible         =   False
       Width           =   16
    End
    Begin Timer Timer1
-      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -349,7 +345,6 @@ Begin BHWindow BHViewerHTMLEmail
       Selectable      =   False
       TabIndex        =   7
       TabPanelIndex   =   0
-      TabStop         =   True
       Text            =   ""
       TextAlign       =   2
       TextColor       =   &c00000000
@@ -361,37 +356,6 @@ Begin BHWindow BHViewerHTMLEmail
       Underline       =   False
       Visible         =   True
       Width           =   296
-   End
-   Begin PushButton pbEnvoyer1
-      AutoDeactivate  =   True
-      Bold            =   False
-      ButtonStyle     =   "0"
-      Cancel          =   False
-      Caption         =   "#kEnvoyer"
-      Default         =   True
-      Enabled         =   True
-      Height          =   20
-      HelpTag         =   ""
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   385
-      LockBottom      =   True
-      LockedInPosition=   False
-      LockLeft        =   False
-      LockRight       =   True
-      LockTop         =   False
-      Scope           =   0
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      TabStop         =   True
-      TextFont        =   "System"
-      TextSize        =   0.0
-      TextUnit        =   0
-      Top             =   154
-      Underline       =   False
-      Visible         =   False
-      Width           =   88
    End
 End
 #tag EndWindow
@@ -412,38 +376,69 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub showmodal(pPDF as Folderitem, pEmail as String = "")
-		  Dim pBHReportHTMLViewer As New  BHViewerHTMLEmail(pPDF, pEmail)
+		Sub EmailHardCore()
+		  ProgressWheel1.Visible = true
+		  me.Enabled = False
 		  
-		  pBHReportHTMLViewer.ShowModal()
+		  
+		  'Note: the 'p' Variables are Received into this Method as Parameters
+		  
+		  
+		  dim strMessage as String
+		  dim strEmailAddress as String = "mailto:" + tDestinataireCourriel.text
+		  dim strEmailSubject as String = tSujetCourriel.text
+		  dim strEmailBody as String = mHTML
+		  dim strEmailSignature as String = ""
+		  dim strAttachmentName as String
+		  
+		  If mPDF <> Nil then
+		    strAttachmentName = mPDF.Name
+		  end if
+		  dim strCC, strBCC as String = ""
+		  
+		  'Construct the Body - Dealing with Cross Platform Differences
+		  strEmailBody = strEmailBody + Encodings.UTF8.Chr(13) + Encodings.UTF8.Chr(13) + strEmailSignature
+		  #if (TargetMacOS) =TRUE
+		    strEmailBody = ReplaceLineEndings(strEmailBody,Chr(10))
+		  #endif
+		  #if (TargetWin32) =TRUE
+		    dim strHTML as String = ""
+		    strEmailBody = ReplaceLineEndings(strEmailBody,"%0D%0A")
+		    strEmailBody = ReplaceAll(strEmailBody," ","%20")
+		    strHTML = strHTML + strEmailBody
+		    strHTML = strHTML + "&nbsp;"
+		    strHTML = strHTML + "</p>"
+		    strEmailBody = strHTML
+		  #endif
+		  
+		  'Deal with CC and BCC
+		  if strCC.Len > 1 and strBCC.Len > 1 then
+		    strMessage = strEmailAddress + "?subject=" + strEmailSubject + "&cc=" + strCC + "&bcc=" + strBCC+ "&body=" + strEmailBody
+		  elseif strCC.Len < 1 and strBCC.Len < 1 then
+		    strMessage = strEmailAddress + "?subject=" + strEmailSubject + "&body=" + strEmailBody
+		  elseif strCC.Len > 1 and strBCC.Len < 1 then
+		    strMessage = strEmailAddress + "?subject=" + strEmailSubject + "&cc=" + strCC + "&body=" + strEmailBody
+		  elseif strCC.Len < 1 and strBCC.Len > 1 then
+		    strMessage = strEmailAddress + "?subject=" + strEmailSubject + "&bcc=" + strBCC + "&body=" + strEmailBody
+		  end if
+		  
+		  'Deal with Attachment
+		  if strAttachmentName.Len > 0 then
+		    strMessage = strMessage + "&attach=" + strAttachmentName
+		  end if
+		  
+		  'Send via Default Email Client
+		  ShowURL strMessage
+		  
+		  
+		  //####################################################################################
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		 Shared Sub showmodal(pHTML as String, pEmail as String = "")
-		  Dim pBHReportHTMLViewer As New  BHViewerHTMLEmail(pHTML, pEmail)
-		  
-		  pBHReportHTMLViewer.ShowModal()
-		End Sub
-	#tag EndMethod
-
-
-	#tag Property, Flags = &h0
-		mHTML As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		mPDF As FolderItem
-	#tag EndProperty
-
-
-#tag EndWindowCode
-
-#tag Events pbEnvoyer
-	#tag Event
-		Sub Action()
+		Sub EmailInterne()
 		  ProgressWheel1.Visible = true
-		  me.Enabled = False
+		  pbEnvoyer.Enabled = False
 		  
 		  dim e as new EmailMessage
 		  dim a as EmailAttachment
@@ -503,6 +498,82 @@ End
 		  // On envoie la sauce à pattate juteuse !
 		  sock.SendMail
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub EmailKanjo()
+		  dim req as new HTTPSocket
+		  
+		  req.SetRequestHeader("User-Agent", "Budjhete/2.5 (Macintosh; Intel Mac OS X 10_11_4; en-us)")
+		  
+		  dim s as string
+		  dim cpny as Company = Company.Current()
+		  if  cpny.Client().courriel <> "" then
+		    s = cpny.Client().courriel
+		  else
+		    s = "no-reply@kanjo.ca"
+		  end if
+		  
+		  dim tHTML as string = Replace(mHTML, "<head>", "<head><base href=""http://www.kanjo.ca/"" />")
+		  tHTML = Replace(tHTML, "<?xml version=""1.0"" encoding=""UTF-8""?>"+Chr(13), "")
+		  dim post as new Dictionary
+		  //post.Value("name") = tName.Text
+		  post.Value("email") = tDestinataireCourriel.text
+		  post.Value("subject") = tSujetCourriel.text
+		  post.Value("html") = tHTML
+		  post.Value("from") = s
+		  
+		  req.SetFormData(post)
+		  dim r as string = req.Post("http://app.budjhete.com/send-email.php", 10)
+		  
+		  if Len(r) > 4 then
+		    MsgBox r
+		  else
+		    MsgBox kFeedbackEnvoyeAvecSuccess
+		  end if
+		  Close()
+		  
+		  
+		  
+		  
+		  
+		  //e.Headers.AppendHeader "X-Mailer", "Kanjo SMTP Mail Services"
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Sub showmodal(pPDF as Folderitem, pEmail as String = "")
+		  Dim pBHReportHTMLViewer As New  BHViewerHTMLEmail(pPDF, pEmail)
+		  
+		  pBHReportHTMLViewer.ShowModal()
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		 Shared Sub showmodal(pHTML as String, pEmail as String = "")
+		  Dim pBHReportHTMLViewer As New  BHViewerHTMLEmail(pHTML, pEmail)
+		  
+		  pBHReportHTMLViewer.ShowModal()
+		End Sub
+	#tag EndMethod
+
+
+	#tag Property, Flags = &h0
+		mHTML As String
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		mPDF As FolderItem
+	#tag EndProperty
+
+
+#tag EndWindowCode
+
+#tag Events pbEnvoyer
+	#tag Event
+		Sub Action()
+		  EmailKanjo()
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -585,67 +656,6 @@ End
 		Sub Action()
 		  ProgressWheel1.Visible = false
 		  self.close
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events pbEnvoyer1
-	#tag Event
-		Sub Action()
-		  ProgressWheel1.Visible = true
-		  me.Enabled = False
-		  
-		  
-		  'Note: the 'p' Variables are Received into this Method as Parameters
-		  
-		  
-		  dim strMessage as String
-		  dim strEmailAddress as String = "mailto:" + tDestinataireCourriel.text
-		  dim strEmailSubject as String = tSujetCourriel.text
-		  dim strEmailBody as String = mHTML
-		  dim strEmailSignature as String = ""
-		  dim strAttachmentName as String
-		  
-		  If mPDF <> Nil then
-		    strAttachmentName = mPDF.Name
-		  end if
-		  dim strCC, strBCC as String = ""
-		  
-		  'Construct the Body - Dealing with Cross Platform Differences
-		  strEmailBody = strEmailBody + Encodings.UTF8.Chr(13) + Encodings.UTF8.Chr(13) + strEmailSignature
-		  #if (TargetMacOS) =TRUE
-		    strEmailBody = ReplaceLineEndings(strEmailBody,Chr(10))
-		  #endif
-		  #if (TargetWin32) =TRUE
-		    dim strHTML as String = ""
-		    strEmailBody = ReplaceLineEndings(strEmailBody,"%0D%0A")
-		    strEmailBody = ReplaceAll(strEmailBody," ","%20")
-		    strHTML = strHTML + strEmailBody
-		    strHTML = strHTML + "&nbsp;"
-		    strHTML = strHTML + "</p>"
-		    strEmailBody = strHTML
-		  #endif
-		  
-		  'Deal with CC and BCC
-		  if strCC.Len > 1 and strBCC.Len > 1 then
-		    strMessage = strEmailAddress + "?subject=" + strEmailSubject + "&cc=" + strCC + "&bcc=" + strBCC+ "&body=" + strEmailBody
-		  elseif strCC.Len < 1 and strBCC.Len < 1 then
-		    strMessage = strEmailAddress + "?subject=" + strEmailSubject + "&body=" + strEmailBody
-		  elseif strCC.Len > 1 and strBCC.Len < 1 then
-		    strMessage = strEmailAddress + "?subject=" + strEmailSubject + "&cc=" + strCC + "&body=" + strEmailBody
-		  elseif strCC.Len < 1 and strBCC.Len > 1 then
-		    strMessage = strEmailAddress + "?subject=" + strEmailSubject + "&bcc=" + strBCC + "&body=" + strEmailBody
-		  end if
-		  
-		  'Deal with Attachment
-		  if strAttachmentName.Len > 0 then
-		    strMessage = strMessage + "&attach=" + strAttachmentName
-		  end if
-		  
-		  'Send via Default Email Client
-		  ShowURL strMessage
-		  
-		  
-		  //####################################################################################
 		End Sub
 	#tag EndEvent
 #tag EndEvents
