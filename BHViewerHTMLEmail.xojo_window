@@ -378,7 +378,7 @@ End
 	#tag Method, Flags = &h0
 		Sub EmailHardCore()
 		  ProgressWheel1.Visible = true
-		  me.Enabled = False
+		  pbEnvoyer.Enabled = False
 		  
 		  
 		  'Note: the 'p' Variables are Received into this Method as Parameters
