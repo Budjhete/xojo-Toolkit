@@ -517,6 +517,7 @@ End
 		  
 		  dim tHTML as string = Replace(mHTML, "<head>", "<head><base href=""http://www.kanjo.ca/"" />")
 		  tHTML = Replace(tHTML, "<?xml version=""1.0"" encoding=""UTF-8""?>"+Chr(13), "")
+		  tHTML = EncodeBase64(tHTML)
 		  dim post as new Dictionary
 		  //post.Value("name") = tName.Text
 		  post.Value("email") = tDestinataireCourriel.text
@@ -525,12 +526,12 @@ End
 		  post.Value("from") = s
 		  
 		  req.SetFormData(post)
-		  dim r as string = req.Post("http://app.budjhete.com/send-email.php", 10)
+		  dim r as string = req.Post("http://app.kanjo.ca/send-email.php", 10)
 		  
 		  if Len(r) > 4 then
 		    MsgBox r
 		  else
-		    MsgBox kFeedbackEnvoyeAvecSuccess
+		    MsgBox kCourrielEnvoyeAvecSucces
 		  end if
 		  Close()
 		  
@@ -707,7 +708,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty

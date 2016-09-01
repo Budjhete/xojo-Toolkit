@@ -199,9 +199,17 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub LoadHTML(pHTML as String)
-		  Dim f As FolderItem = GetTemporaryFolderItem
-		  hReportViewer.LoadPage(pHTML, f)
+		Sub LoadHTML(pHTML as String = "")
+		  if pHTML <> "" then
+		    Dim f As FolderItem = GetTemporaryFolderItem
+		    hReportViewer.LoadPage(pHTML, f)
+		    
+		    // Reload
+		  elseIf mXSL <> Nil Then
+		    hReportViewer.LoadPage(mXSL.Render, Company.Current.DatabaseFile)
+		  Else
+		    hReportViewer.LoadPage(Company.Current.Template("rapportvide_"+ kLang +".html"))
+		  End If
 		End Sub
 	#tag EndMethod
 
@@ -508,12 +516,7 @@ End
 			    mXSL.Data.Value("GenereParKanjo") = kGenereParKanjo
 			  end if
 			  
-			  // Reload
-			  If mXSL <> Nil Then
-			    hReportViewer.LoadPage(mXSL.Render, Company.Current.DatabaseFile)
-			  Else
-			    hReportViewer.LoadPage(Company.Current.Template("rapportvide_"+ kLang +".html"))
-			  End If
+			  LoadHTML()
 			End Set
 		#tag EndSetter
 		XSL As XSLObject

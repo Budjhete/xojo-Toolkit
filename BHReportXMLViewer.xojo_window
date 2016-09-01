@@ -9,7 +9,7 @@ Begin BHWindow BHReportXMLViewer
    FullScreen      =   False
    FullScreenButton=   False
    HasBackColor    =   False
-   Height          =   588
+   Height          =   590
    ImplicitInstance=   True
    LiveResize      =   True
    MacProcID       =   0
@@ -25,7 +25,7 @@ Begin BHWindow BHReportXMLViewer
    Resizeable      =   True
    Title           =   "#kApercu"
    Visible         =   True
-   Width           =   882
+   Width           =   906
    Begin OptionTimer TheAltKey
       Index           =   -2147483648
       InitialParent   =   ""
@@ -44,7 +44,7 @@ Begin BHWindow BHReportXMLViewer
       Enabled         =   False
       EraseBackground =   True
       HasBackColor    =   False
-      Height          =   561
+      Height          =   540
       HelpTag         =   ""
       index           =   -2147483648
       InitialParent   =   ""
@@ -58,11 +58,11 @@ Begin BHWindow BHReportXMLViewer
       TabIndex        =   0
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   2
+      Top             =   25
       Transparent     =   True
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   882
+      Width           =   906
    End
    Begin bar Canvas1
       AcceptFocus     =   False
@@ -72,6 +72,8 @@ Begin BHWindow BHReportXMLViewer
       DoubleBuffer    =   False
       Enabled         =   True
       EraseBackground =   True
+      ForeColor       =   &c00000000
+      ForeTopColor    =   &c00000000
       Height          =   25
       HelpTag         =   ""
       Index           =   -2147483648
@@ -87,11 +89,11 @@ Begin BHWindow BHReportXMLViewer
       TabIndex        =   14
       TabPanelIndex   =   0
       TabStop         =   True
-      Top             =   563
+      Top             =   565
       Transparent     =   True
       UseFocusRing    =   True
       Visible         =   True
-      Width           =   882
+      Width           =   906
       Begin BarButton pbFermer
          AcceptFocus     =   False
          AcceptTabs      =   False
@@ -121,7 +123,7 @@ Begin BHWindow BHReportXMLViewer
          TabPanelIndex   =   0
          TabStop         =   True
          Tag             =   ""
-         Top             =   563
+         Top             =   565
          Transparent     =   True
          UseFocusRing    =   True
          Visible         =   True
@@ -165,7 +167,7 @@ Begin BHWindow BHReportXMLViewer
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   563
+         Top             =   565
          Underline       =   False
          Value           =   False
          Visible         =   True
@@ -188,7 +190,7 @@ Begin BHWindow BHReportXMLViewer
          Index           =   -2147483648
          InitialParent   =   "Canvas1"
          Label           =   "#kImprimer"
-         Left            =   759
+         Left            =   783
          LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   False
@@ -200,7 +202,7 @@ Begin BHWindow BHReportXMLViewer
          TabPanelIndex   =   0
          TabStop         =   True
          Tag             =   ""
-         Top             =   563
+         Top             =   565
          Transparent     =   True
          UseFocusRing    =   True
          Visible         =   True
@@ -210,7 +212,7 @@ Begin BHWindow BHReportXMLViewer
          AcceptFocus     =   False
          AcceptTabs      =   False
          AutoDeactivate  =   True
-         Backdrop        =   0
+         Backdrop        =   1533798753
          BorderBottom    =   True
          BorderLeft      =   True
          BorderRight     =   False
@@ -223,7 +225,7 @@ Begin BHWindow BHReportXMLViewer
          Index           =   -2147483648
          InitialParent   =   "Canvas1"
          Label           =   "#kPageSetup"
-         Left            =   637
+         Left            =   661
          LockBottom      =   True
          LockedInPosition=   False
          LockLeft        =   False
@@ -235,7 +237,7 @@ Begin BHWindow BHReportXMLViewer
          TabPanelIndex   =   0
          TabStop         =   True
          Tag             =   ""
-         Top             =   563
+         Top             =   565
          Transparent     =   True
          UseFocusRing    =   True
          Visible         =   True
@@ -252,7 +254,7 @@ Begin BHWindow BHReportXMLViewer
          Index           =   -2147483648
          InitialParent   =   "Canvas1"
          Italic          =   False
-         Left            =   308
+         Left            =   309
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -269,11 +271,147 @@ Begin BHWindow BHReportXMLViewer
          TextFont        =   "System"
          TextSize        =   0.0
          TextUnit        =   0
-         Top             =   563
+         Top             =   565
          Transparent     =   True
          Underline       =   False
          Visible         =   True
-         Width           =   317
+         Width           =   316
+      End
+      Begin BarButton pbPageSetup1
+         AcceptFocus     =   False
+         AcceptTabs      =   False
+         AutoDeactivate  =   True
+         Backdrop        =   919088928
+         BorderBottom    =   True
+         BorderLeft      =   False
+         BorderRight     =   True
+         BorderTop       =   True
+         DoubleBuffer    =   False
+         Enabled         =   True
+         EraseBackground =   True
+         Height          =   25
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Canvas1"
+         Label           =   "#kEnvoyerHTMLParCourriel"
+         Left            =   144
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Resizeable      =   False
+         Scope           =   0
+         TabIndex        =   5
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tag             =   ""
+         Top             =   565
+         Transparent     =   True
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   153
+      End
+   End
+   Begin Bar Bar1
+      AcceptFocus     =   False
+      AcceptTabs      =   False
+      AutoDeactivate  =   True
+      Backdrop        =   0
+      DoubleBuffer    =   False
+      Enabled         =   True
+      EraseBackground =   True
+      ForeColor       =   &c00000000
+      ForeTopColor    =   &c00000000
+      Height          =   25
+      HelpTag         =   ""
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   0
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      Resizeable      =   False
+      Scope           =   0
+      TabIndex        =   15
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Top             =   0
+      Transparent     =   True
+      UseFocusRing    =   True
+      Visible         =   True
+      Width           =   906
+      Begin BarButton pbApercuHTML
+         AcceptFocus     =   False
+         AcceptTabs      =   False
+         AutoDeactivate  =   True
+         Backdrop        =   0
+         BorderBottom    =   True
+         BorderLeft      =   True
+         BorderRight     =   True
+         BorderTop       =   True
+         DoubleBuffer    =   False
+         Enabled         =   True
+         EraseBackground =   True
+         Height          =   25
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Bar1"
+         Label           =   "HTML"
+         Left            =   326
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Resizeable      =   False
+         Scope           =   0
+         TabIndex        =   0
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tag             =   ""
+         Top             =   0
+         Transparent     =   True
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   115
+      End
+      Begin BarButton pbApercuImprime
+         AcceptFocus     =   False
+         AcceptTabs      =   False
+         AutoDeactivate  =   True
+         Backdrop        =   0
+         BorderBottom    =   True
+         BorderLeft      =   True
+         BorderRight     =   True
+         BorderTop       =   True
+         DoubleBuffer    =   False
+         Enabled         =   True
+         EraseBackground =   True
+         Height          =   25
+         HelpTag         =   ""
+         Index           =   -2147483648
+         InitialParent   =   "Bar1"
+         Label           =   "Printer"
+         Left            =   440
+         LockBottom      =   True
+         LockedInPosition=   False
+         LockLeft        =   True
+         LockRight       =   False
+         LockTop         =   True
+         Resizeable      =   False
+         Scope           =   0
+         TabIndex        =   1
+         TabPanelIndex   =   0
+         TabStop         =   True
+         Tag             =   ""
+         Top             =   0
+         Transparent     =   True
+         UseFocusRing    =   True
+         Visible         =   True
+         Width           =   115
       End
    End
 End
@@ -469,6 +607,34 @@ End
 		End Sub
 	#tag EndEvent
 #tag EndEvents
+#tag Events pbPageSetup1
+	#tag Event
+		Sub Action()
+		  EnvoyerHTMLCourriel()
+		End Sub
+	#tag EndEvent
+	#tag Event
+		Sub Open()
+		  
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events pbApercuHTML
+	#tag Event
+		Sub Action()
+		  cReport.XSL.PrintPreview = false
+		  cReport.LoadHTML()
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events pbApercuImprime
+	#tag Event
+		Sub Action()
+		  cReport.XSL.PrintPreview = true
+		  cReport.LoadHTML()
+		End Sub
+	#tag EndEvent
+#tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
 		Name="BackColor"
@@ -517,7 +683,6 @@ End
 			"7 - Global Floating Window"
 			"8 - Sheet Window"
 			"9 - Metal Window"
-			"10 - Drawer Window"
 			"11 - Modeless Dialog"
 		#tag EndEnumValues
 	#tag EndViewProperty
