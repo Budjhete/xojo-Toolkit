@@ -3,8 +3,11 @@ Protected Class BHPopupMenuPays
 Inherits BHPopupMenu
 	#tag Event
 		Sub Open()
-		  me.AddRow("-")
-		  me.RowTag(me.ListCount-1) = ""
+		  #if TargetMacOS then
+		    me.AddSeparator
+		  #else
+		    me.AddRow("-")
+		  #endif
 		  me.AddRow(kCanada)
 		  me.RowTag(me.ListCount-1) = isoCanada
 		  me.AddRow("USA")
