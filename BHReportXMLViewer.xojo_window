@@ -27,6 +27,7 @@ Begin BHWindow BHReportXMLViewer
    Visible         =   True
    Width           =   906
    Begin OptionTimer TheAltKey
+      Enabled         =   True
       Index           =   -2147483648
       InitialParent   =   ""
       LockedInPosition=   False
@@ -46,7 +47,7 @@ Begin BHWindow BHReportXMLViewer
       HasBackColor    =   False
       Height          =   540
       HelpTag         =   ""
-      index           =   -2147483648
+      Index           =   -2147483648
       InitialParent   =   ""
       Left            =   0
       LockBottom      =   True
@@ -265,6 +266,7 @@ Begin BHWindow BHReportXMLViewer
          Selectable      =   False
          TabIndex        =   4
          TabPanelIndex   =   0
+         TabStop         =   True
          Text            =   "#kPreviewBeforeSave"
          TextAlign       =   0
          TextColor       =   &cE0E0E000
@@ -622,16 +624,16 @@ End
 #tag Events pbApercuHTML
 	#tag Event
 		Sub Action()
-		  cReport.XSL.PrintPreview = false
-		  cReport.LoadHTML()
+		  'cReport.XSL.PrintPreview = false
+		  'cReport.LoadHTML()
 		End Sub
 	#tag EndEvent
 #tag EndEvents
 #tag Events pbApercuImprime
 	#tag Event
 		Sub Action()
-		  cReport.XSL.PrintPreview = true
-		  cReport.LoadHTML()
+		  'cReport.XSL.PrintPreview = true
+		  'cReport.LoadHTML()
 		End Sub
 	#tag EndEvent
 #tag EndEvents

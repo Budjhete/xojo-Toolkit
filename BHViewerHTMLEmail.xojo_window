@@ -531,7 +531,7 @@ End
 		  if Len(r) > 4 then
 		    MsgBox r
 		  else
-		    MsgBox kCourrielEnvoyeAvecSucces
+		    MsgBox "kCourrielEnvoyeAvecSucces"
 		  end if
 		  Close()
 		  
