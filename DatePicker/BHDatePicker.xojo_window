@@ -245,7 +245,12 @@ End
 		#tag EndGetter
 		#tag Setter
 			Set
-			  Dim pOldDate As Date = mDate
+			  Dim pOldDate As Date 
+			  if mdate <> Nil then
+			    pOldDate = mDate
+			  else
+			    pOldDate = new date
+			  end if
 			  
 			  mDate = value
 			  
@@ -253,6 +258,7 @@ End
 			  
 			  If mDate = Nil Then
 			    tDate.Text = ""
+			    return
 			  Else
 			    tDate.Text = mDate.SQLDate
 			  End If
