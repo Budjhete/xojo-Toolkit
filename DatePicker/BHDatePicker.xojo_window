@@ -245,7 +245,7 @@ End
 		#tag EndGetter
 		#tag Setter
 			Set
-			  Dim pOldDate As Date 
+			  Dim pOldDate As Date
 			  if mdate <> Nil then
 			    pOldDate = mDate
 			  else

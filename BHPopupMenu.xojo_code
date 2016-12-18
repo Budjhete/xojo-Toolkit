@@ -45,34 +45,6 @@ Implements SortInterface,BHControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub FillWithAccounts()
-		  FillWithAccounts("")
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub FillWithAccounts(pAndWhere As String)
-		  Dim result as SQLResult
-		  Dim Sql as String
-		  
-		  Sql = "SELECT noCompte, Nom " + _
-		  " FROM Compte " + _
-		  " WHERE EstActif = 1 AND NoCompte IS NOT NULL " + pAndWhere + _
-		  " ORDER BY NoCompte ASC"
-		  result = doQuery(Sql)
-		  
-		  Me.DeleteAllRows()
-		  
-		  Dim i As Integer = 0
-		  While result.Fetch()
-		    Me.AddRow(result.Field("noCompte").StringValue + ". " + result.Field("Nom").StringValue, result.Field("noCompte").IntegerValue)
-		    Me.RowTag(i) = result.Field("noCompte").IntegerValue
-		    i = i + 1
-		  Wend
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
 		Function Find(pTag As Variant) As Integer
 		  For pRow As Integer = 0 To Me.ListCount - 1
 		    If Me.RowTag(pRow) = pTag Then
