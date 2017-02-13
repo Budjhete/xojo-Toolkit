@@ -291,6 +291,18 @@ Implements BHControl
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CellCheck(pRow as integer, pColumn As String) As Boolean
+		  return Me.CellCheck(pRow, Me.Columns.IndexOf(pColumn))
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub CellCheck(pRow as integer, pColumn As String, Assigns pBou As Boolean)
+		  Me.CellCheck(pRow, Me.Columns.IndexOf(pColumn)) = pBou
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function CellItalic(pRow As Integer, pColumn As String) As Boolean
 		  Return Super.CellItalic(pRow, Me.Columns.IndexOf(pColumn))
 		End Function
@@ -514,6 +526,12 @@ Implements BHControl
 		  
 		  return value
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub ColumnType(pColumn As String, Assigns pType As Integer)
+		  Me.ColumnType(Me.Columns.IndexOf(pColumn)) = pType
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
