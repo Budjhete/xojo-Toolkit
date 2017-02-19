@@ -2,11 +2,24 @@
 Protected Class BHPopupMenu
 Inherits PopupMenu
 Implements SortInterface,BHControl
+	#tag Event
+		Sub Change()
+		  // windows reject selection and mac specialrow rejection with rowtag
+		  if me.text = "--" or me.Tag.Type = 8 then
+		    if me.tag.StringValue = "-" OR me.text = "--" then
+		      me.ListIndex = -1
+		    end if
+		  end if
+		  RaiseEvent Change
+		End Sub
+	#tag EndEvent
+
+
 	#tag Method, Flags = &h0
 		Sub AddRow(pText As String)
 		  #if not TargetMacOS
 		    if pText = "-" then
-		      return
+		      pText = "--"
 		    end
 		  #endif
 		  
@@ -18,7 +31,7 @@ Implements SortInterface,BHControl
 		Sub AddRow(pText as String, pTag as Variant)
 		  #if not TargetMacOS
 		    if pText = "-" then
-		      return
+		      pText = "--"
 		    end
 		  #endif
 		  
@@ -232,6 +245,10 @@ Implements SortInterface,BHControl
 		End Sub
 	#tag EndMethod
 
+
+	#tag Hook, Flags = &h0
+		Event Change()
+	#tag EndHook
 
 	#tag Hook, Flags = &h0
 		Event Check() As Boolean
