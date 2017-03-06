@@ -51,10 +51,11 @@ Inherits Canvas
 		      textX = textX + (Backdrop.Width + kIconTextSpace)/2
 		    end
 		    
-		    g.ForeColor = IIF(Me.Enabled, RGB(34,34,34), RGB(238,238,238))
+		    g.ForeColor = IIF(Me.Enabled, RGB(34,34,34), RGB(85,85,85))
 		    g.TextSize = 10
 		    g.DrawString(Label, textX, ((g.Height - g.TextHeight) / 2 + g.TextHeight) - 2, TextAlign.Center)
 		  end
+		  
 		  
 		  
 		  ' Icone
