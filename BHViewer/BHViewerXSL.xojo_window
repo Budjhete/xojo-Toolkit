@@ -174,9 +174,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub HTML_export(pNomRapport as String = "default")
-		  dim d as new date
-		  dim dt as string = ReplaceAll(d.SQLDateTime, ":", "-")
-		  dt = ReplaceAll(dt, "", "_")
+		  
 		  //sauvegarde du html
 		  dim h as string
 		  
@@ -190,11 +188,17 @@ End
 		    h = hReportViewer.mainFrameMBS.dataSource.data
 		  end if
 		  
+		  Dim f as FolderItem
+		  f = GetSaveFolderItem(KanjoFileTypes.HTML, pNomRapport+".html")
+		  If f <> Nil then
+		  else
+		    Return
+		  End If
 		  
-		  dim fp as TextOutputStream = TextOutputStream.Create(SpecialFolder.Desktop.Child(pNomRapport + "-" + dt + ".html"))
+		  dim fp as TextOutputStream = TextOutputStream.Create(f)
 		  fp.WriteLine(h)
 		  fp.Close()
-		  MsgBox kLeFichier + "« " + pNomRapport + " »" + kAEteEnregistrerSurVotreBureau
+		  MsgBox kLeFichier + "' " + pNomRapport + " '" + kAEteEnregistre
 		End Sub
 	#tag EndMethod
 
@@ -311,24 +315,29 @@ End
 		  System.DebugLog "-- END Grandeur d'impression --"
 		  
 		  //créer un folder si plusieurs fichier pdf
+		  
+		  f = GetSaveFolderItem(KanjoFileTypes.Pdf, mNomRapport+".pdf")
+		  If f <> Nil then
+		  else
+		    exit
+		  End If
+		  
+		  Dim rF as FolderItem
+		  rf = f
 		  if c > 1 then
-		    f = SpecialFolder.Desktop.Child(mNomRapport)
+		    f = f.Parent.Child(mNomRapport)
 		    f.CreateAsFolder()
-		  Else
-		    f = SpecialFolder.Desktop
+		    rf = f.Parent.Child(mNomRapport)
 		  end if
 		  
 		  i = 0
 		  While i<c
 		    s = web.PrintingPage(i)
 		    if c > 1 then
-		      f = SpecialFolder.Desktop.Child(mNomRapport)
-		      f.CreateAsFolder()
-		    Else
-		      f = SpecialFolder.Desktop
+		      f = rf.Child(mNomRapport +" - Page "+str(i+1)+".pdf")
+		    else
+		      f = rf
 		    end if
-		    
-		    f = f.Child(mNomRapport +" - Page "+str(i+1)+".pdf")
 		    b = f.CreateBinaryFile("")
 		    If b <> Nil Then
 		      b.Write s
@@ -342,7 +351,7 @@ End
 		  if mIsEmail = true then
 		    Return f
 		  else
-		    MsgBox mNomRapport + " : " + str(c)+" " + kPDFCree_sSurLeBureau_
+		    MsgBox mNomRapport + " : " + str(c)+" " + kPDFCree
 		    Return Nil
 		  end if
 		End Function

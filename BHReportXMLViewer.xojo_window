@@ -546,10 +546,10 @@ End
 		  me.AddRow("-")
 		  
 		  #if TargetMacOS then
-		    me.AddRow(kEnregistrerPDFSurLeBureau)
+		    me.AddRow(kEnregistrerPDFSous_)
 		  #endif
 		  
-		  me.AddRow(kEnregistrerHTMLSurLeBureau)
+		  me.AddRow(kEnregistrerHTMLSous_)
 		  
 		End Sub
 	#tag EndEvent
@@ -560,9 +560,9 @@ End
 		    EnvoyerPDFCourriel
 		  case kEnvoyerHTMLParCourriel
 		    EnvoyerHTMLCourriel
-		  case kEnregistrerPDFSurLeBureau
+		  case kEnregistrerPDFSous_
 		    EnregistrerPDFSurBureau
-		  case kEnregistrerHTMLSurLeBureau
+		  case kEnregistrerHTMLSous_
 		    EnregistrerHTMLSurBureau
 		    
 		  End Select
