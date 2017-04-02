@@ -342,7 +342,7 @@ End
 		  if mIsEmail = true then
 		    Return f
 		  else
-		    MsgBox str(c)+"kPDF créé(s) sur le bureau."
+		    MsgBox mNomRapport + " : " + str(c)+" " + kPDFCree_sSurLeBureau_
 		    Return Nil
 		  end if
 		End Function
