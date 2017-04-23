@@ -23,7 +23,7 @@ Implements BHControl
 		    ElseIf Not c Then
 		      Dim pMessageDialog As New MessageDialog
 		      pMessageDialog.Message = kVousDevezCorrigerLesChampsColoresEnRoseAvantDePouvoirSauvegarder
-		      pMessageDialog.Explanation = mMessage
+		      pMessageDialog.Explanation = WindowCompagnie(Self.TrueWindow).Panel.mMessage
 		      pMessageDialog.CancelButton.Visible = False
 		      pMessageDialog.ActionButton.Caption = "Ok"
 		      pMessageDialog.AlternateActionButton.Visible = False
@@ -212,10 +212,6 @@ Implements BHControl
 		Protected mLabel As String
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
-		mMessage As String
-	#tag EndProperty
-
 	#tag Property, Flags = &h1
 		Protected mPressed As Boolean = False
 	#tag EndProperty
@@ -354,12 +350,6 @@ Implements BHControl
 			Visible=true
 			Group="Position"
 			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="mMessage"
-			Group="Behavior"
-			Type="String"
-			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"
