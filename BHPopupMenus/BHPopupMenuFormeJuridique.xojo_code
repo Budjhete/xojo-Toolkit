@@ -3,19 +3,19 @@ Protected Class BHPopupMenuFormeJuridique
 Inherits BHPopupMenu
 	#tag Event
 		Sub Open()
-		  me.AddRow(kEntrepriseIndividuelle)
+		  me.AddRow(kEntrepriseIndividuelle, "")
 		  
 		  me.AddRow("-")
 		  
-		  me.AddRow(kSocieteCollectif)
+		  me.AddRow(kSocieteCollectif, "SENC")
 		  
-		  me.AddRow(kSocieteDeCommandite)
+		  me.AddRow(kSocieteDeCommandite, "SEC")
 		  
 		  me.AddRow("-")
 		  
-		  me.AddRow(kCompagnieINC)
+		  me.AddRow(kCompagnieINC, "INC")
 		  
-		  me.AddRow(kCooperative)
+		  me.AddRow(kCooperative, "COOP")
 		End Sub
 	#tag EndEvent
 
@@ -74,6 +74,7 @@ Inherits BHPopupMenu
 			Visible=true
 			Group="ID"
 			Type="Integer"
+			EditorType="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
@@ -134,6 +135,7 @@ Inherits BHPopupMenu
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NotEmpty"
@@ -146,6 +148,7 @@ Inherits BHPopupMenu
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
