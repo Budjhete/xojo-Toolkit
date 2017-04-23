@@ -229,7 +229,7 @@ End
 
 #tag Events bMoins
 	#tag Event
-		Sub Action()
+		Sub Action(index as Integer)
 		  if index = 0 then
 		    
 		    AddField("du text")
@@ -241,7 +241,7 @@ End
 #tag EndEvents
 #tag Events pMenu
 	#tag Event
-		Sub Open()
+		Sub Open(index as Integer)
 		  RaiseEvent MenuOpen(index)
 		End Sub
 	#tag EndEvent

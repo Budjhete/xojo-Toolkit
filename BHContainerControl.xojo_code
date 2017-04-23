@@ -4,16 +4,20 @@ Inherits ContainerControl
 Implements BHControl
 	#tag Method, Flags = &h0
 		Function Check() As Boolean
+		  CheckDictionary = new Dictionary
+		  dim mCheck as Boolean = True
 		  For i As Integer = 0 To Me.ControlCount - 1
 		    If Me.Control(i) IsA BHControl Then
-		      If Not BHControl(Me.Control(i)).Check Then
+		      dim b as Boolean = BHControl(Me.Control(i)).Check
+		      CheckDictionary.Value(Me.Control(i).Name) = b
+		      If Not b Then
 		        System.DebugLog Me.Control(i).Name + " does not check."
-		        Return False
+		        mCheck = false
 		      End If
 		    End If
 		  Next
 		  
-		  Return Not RaiseEvent Check
+		  Return mCheck AND Not RaiseEvent Check
 		End Function
 	#tag EndMethod
 
@@ -59,6 +63,10 @@ Implements BHControl
 		Event Showing() As Boolean
 	#tag EndHook
 
+
+	#tag Property, Flags = &h0
+		CheckDictionary As Dictionary
+	#tag EndProperty
 
 	#tag ComputedProperty, Flags = &h0
 		#tag Getter

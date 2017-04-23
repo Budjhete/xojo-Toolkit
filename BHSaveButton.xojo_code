@@ -16,13 +16,14 @@ Implements BHControl
 		  System.DebugLog "savebutton upping"
 		  If (X >= 0 And Y >= 0 And X < Width And Y < Height) Then
 		    WindowCompagnie(Self.TrueWindow).FocusNext
-		    If WindowCompagnie(Self.TrueWindow).Panel.Changed And WindowCompagnie(Self.TrueWindow).Panel.Check Then
+		    Dim c as Boolean = WindowCompagnie(Self.TrueWindow).Panel.Check
+		    If WindowCompagnie(Self.TrueWindow).Panel.Changed And c Then
 		      Call WindowCompagnie(Self.TrueWindow).Panel.Model.Save(WindowCompagnie(Self.TrueWindow).Database)
 		      WindowCompagnie(Self.TrueWindow).EnableActions
-		    ElseIf Not WindowCompagnie(Self.TrueWindow).Panel.Check Then
+		    ElseIf Not c Then
 		      Dim pMessageDialog As New MessageDialog
-		      
 		      pMessageDialog.Message = kVousDevezCorrigerLesChampsColoresEnRoseAvantDePouvoirSauvegarder
+		      pMessageDialog.Explanation = mMessage
 		      pMessageDialog.CancelButton.Visible = False
 		      pMessageDialog.ActionButton.Caption = "Ok"
 		      pMessageDialog.AlternateActionButton.Visible = False
@@ -211,6 +212,10 @@ Implements BHControl
 		Protected mLabel As String
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		mMessage As String
+	#tag EndProperty
+
 	#tag Property, Flags = &h1
 		Protected mPressed As Boolean = False
 	#tag EndProperty
@@ -349,6 +354,12 @@ Implements BHControl
 			Visible=true
 			Group="Position"
 			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="mMessage"
+			Group="Behavior"
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Name"

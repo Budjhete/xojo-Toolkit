@@ -466,6 +466,7 @@ End
 		  dim o as NSPrintOperationMBS = NSPrintOperationMBS.printOperationWithView(hReportViewer, app.PrintConfig)
 		  
 		  o.showsPrintPanel = true
+		  o.showsProgressPanel = true
 		  o.runOperationModalForWindow(pWindow)
 		  o = nil
 		  

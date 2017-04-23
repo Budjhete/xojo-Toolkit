@@ -25,6 +25,7 @@ Implements BHControl
 
 	#tag Method, Flags = &h0
 		Function Check() As Boolean
+		  mError = ""
 		  // If it can be empty and it is empty, no need to check other validations
 		  If Not NotEmpty And Not Valid.NotEmpty(Text) Then
 		    'mError = mError + " - Must be Empty"
