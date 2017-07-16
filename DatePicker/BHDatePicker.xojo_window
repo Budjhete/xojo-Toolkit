@@ -534,8 +534,16 @@ End
 		    self.Width = 180
 		  else
 		    PopUpCalendar.Visible = false
-		    self.Width = mWidth
-		    self.Height = mHeight
+		    if mWidth > 0 then
+		      self.Width = mWidth
+		    else
+		      self.Width = 125
+		    end if
+		    if mHeight > 0 then
+		      self.Height = mHeight
+		    else
+		      self.Height = 22
+		    end if
 		  end if
 		End Sub
 	#tag EndEvent
