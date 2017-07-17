@@ -255,7 +255,10 @@ Implements BHControl
 		      control.Visible = false
 		    next
 		    
-		    Super.Remove(real_index)
+		    // crash on linux with libgtk-x11-2.0
+		    #if not TargetLinux
+		      Super.Remove(real_index)
+		    #endif
 		  end
 		End Sub
 	#tag EndMethod
