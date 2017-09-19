@@ -3,13 +3,17 @@ Protected Class BHPopupMenuLangues
 Inherits BHPopupMenu
 	#tag Event
 		Sub Open()
-		  Dim record As RecordSet = DB.Find("nom", "code").From("Langue").Where("estActif", "=", 1).Execute(Company.Current().Database)
-		  
-		  While not record.EOF
-		    Me.AddRow(record.Field("nom").StringValue.DefineEncoding(Encodings.UTF8))
-		    Me.RowTag(Me.ListCount-1) = record.Field("code").StringValue.DefineEncoding(Encodings.UTF8)
-		    record.MoveNext
-		  Wend
+		  if Company.Current() <> Nil then
+		    Dim record As RecordSet = DB.Find("nom", "code").From("Langue").Where("estActif", "=", 1).Execute(Company.Current().Database)
+		    
+		    While not record.EOF
+		      Me.AddRow(record.Field("nom").StringValue.DefineEncoding(Encodings.UTF8), record.Field("code").StringValue.DefineEncoding(Encodings.UTF8))
+		      record.MoveNext
+		    Wend
+		  else
+		    me.AddRow("Francais", "Fr")
+		    me.AddRow("English", "En")
+		  end if
 		End Sub
 	#tag EndEvent
 
@@ -68,6 +72,7 @@ Inherits BHPopupMenu
 			Visible=true
 			Group="ID"
 			Type="Integer"
+			EditorType="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
@@ -128,6 +133,7 @@ Inherits BHPopupMenu
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NotEmpty"
@@ -140,6 +146,7 @@ Inherits BHPopupMenu
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"

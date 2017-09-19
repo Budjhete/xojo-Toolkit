@@ -3,19 +3,19 @@ Protected Class BHPopupMenuFormeJuridique
 Inherits BHPopupMenu
 	#tag Event
 		Sub Open()
-		  me.AddRow(kEntrepriseIndividuelle, "")
+		  me.AddRow(kEntrepriseIndividuelle(App.Lang), "")
 		  
 		  me.AddRow("-")
 		  
-		  me.AddRow(kSocieteCollectif, "SENC")
+		  me.AddRow(kSocieteCollectif(App.Lang), "SENC")
 		  
-		  me.AddRow(kSocieteDeCommandite, "SEC")
+		  me.AddRow(kSocieteDeCommandite(App.Lang), "SEC")
 		  
 		  me.AddRow("-")
 		  
-		  me.AddRow(kCompagnieINC, "INC")
+		  me.AddRow(kCompagnieINC(App.Lang), "INC")
 		  
-		  me.AddRow(kCooperative, "COOP")
+		  me.AddRow(kCooperative(App.Lang), "COOP")
 		End Sub
 	#tag EndEvent
 
