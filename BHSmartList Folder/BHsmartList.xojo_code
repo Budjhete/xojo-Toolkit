@@ -290,7 +290,8 @@ Inherits BHListBox
 		Section
 		  Item
 		  Group
-		SmartFolder
+		  SmartFolder
+		Menu
 	#tag EndEnum
 
 
