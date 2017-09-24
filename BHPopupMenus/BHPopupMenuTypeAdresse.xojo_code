@@ -3,9 +3,9 @@ Protected Class BHPopupMenuTypeAdresse
 Inherits BHPopupMenu
 	#tag Event
 		Sub Open()
-		  me.AddRow(kFacture)
+		  me.AddRow(kFacture(App.Lang))
 		  me.RowTag(me.ListCount-1) = typeFacturation
-		  me.AddRow(kLivraison)
+		  me.AddRow(kLivraison(App.Lang))
 		  me.RowTag(me.ListCount-1) = typeLivraison
 		End Sub
 	#tag EndEvent
@@ -65,6 +65,7 @@ Inherits BHPopupMenu
 			Visible=true
 			Group="ID"
 			Type="Integer"
+			EditorType="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="InitialParent"
@@ -125,6 +126,7 @@ Inherits BHPopupMenu
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="NotEmpty"
@@ -137,6 +139,7 @@ Inherits BHPopupMenu
 			Visible=true
 			Group="ID"
 			Type="String"
+			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="TabIndex"
