@@ -52,7 +52,7 @@ Inherits MenuItem
 		  dim item as MenuItem = Me.Find(ItemName)
 		  
 		  if item <> nil then
-		    dim value as Boolean = Company.Current().PermissionTo(Permission)
+		    dim value as Boolean = App.CurrentCompany().PermissionTo(Permission)
 		    
 		    item.Enabled = value
 		    item.AutoEnable = value

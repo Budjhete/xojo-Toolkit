@@ -2,12 +2,12 @@
 Protected Class BHPopupMenuListeAdresseClient
 Inherits BHPopupMenu
 	#tag Method, Flags = &h0
-		Sub FillWithAddress(mNoClient as Integer, mType as Integer)
-		  Dim record As RecordSet = DB.Find().From("ClientAdresses").Where("client", "=", mNoClient).OrderBy("type", if(mType = 1, "ASC", "DESC")).Execute(Company.Current().Database)
+		Sub FillWithAddress(pNoClient as Integer, pType as Integer, pDatabase as Database)
+		  Dim record As RecordSet = DB.Find().From("ClientAdresses").Where("client", "=", pNoClient).OrderBy("type", if(pType = 1, "ASC", "DESC")).Execute(pDatabase)
 		  
 		  me.DeleteAllRows
 		  While not record.EOF
-		    me.AddRow(if(record.Field("type").IntegerValue = 1, kFacturation, kLivraison) + " - " + record.Field("nom").StringValue + " : " + record.Field("adresse1").StringValue + if(record.Field("defaut").BooleanValue = true, " *", ""))
+		    me.AddRow(if(record.Field("type").IntegerValue = 1, kFacturation(App.Lang), kLivraison(App.Lang)) + " - " + record.Field("nom").StringValue + " : " + record.Field("adresse1").StringValue + if(record.Field("defaut").BooleanValue = true, " *", ""))
 		    me.RowTag(Me.ListCount-1) = record.Field("id").StringValue
 		    record.MoveNext
 		  Wend

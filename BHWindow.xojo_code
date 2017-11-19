@@ -1,7 +1,6 @@
 #tag Class
 Protected Class BHWindow
 Inherits Window
-Implements View
 	#tag Method, Flags = &h0
 		Function Check() As Boolean
 		  For i As Integer = 0 To Me.ControlCount - 1
