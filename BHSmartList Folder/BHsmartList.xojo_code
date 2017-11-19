@@ -262,14 +262,6 @@ Inherits BHListBox
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		lastcolumn As Integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		lastrow As Integer
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		SectionRowColor As color = &cEEEEEE
 	#tag EndProperty
 
@@ -290,7 +282,8 @@ Inherits BHListBox
 		Section
 		  Item
 		  Group
-		SmartFolder
+		  SmartFolder
+		Menu
 	#tag EndEnum
 
 

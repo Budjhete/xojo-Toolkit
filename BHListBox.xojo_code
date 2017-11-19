@@ -890,7 +890,7 @@ Implements BHControl
 
 	#tag Method, Flags = &h0
 		Sub RowBold(pRow As Integer, Assigns pBold As Boolean)
-		  For pColumn As Integer = 0 To Me.ColumnCount
+		  For pColumn As Integer = 0 To Me.ColumnCount -1
 		    Me.CellBold(pRow, pColumn) = pBold
 		  Next
 		End Sub
@@ -930,6 +930,14 @@ Implements BHControl
 		    end
 		  next
 		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub RowItalic(pRow As Integer, Assigns pItalic As Boolean)
+		  For pColumn As Integer = 0 To Me.ColumnCount
+		    Me.CellItalic(pRow, pColumn) = pItalic
+		  Next
+		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0

@@ -1,17 +1,94 @@
 #tag Class
-Protected Class BHPopupMenuTypeAdresse
-Inherits BHPopupMenu
+Protected Class Validator
+Inherits Canvas
 	#tag Event
 		Sub Open()
-		  me.AddRow(kFacture(App.Lang))
-		  me.RowTag(me.ListCount-1) = typeFacturation
-		  me.AddRow(kLivraison(App.Lang))
-		  me.RowTag(me.ListCount-1) = typeLivraison
+		  Validate()
+		End Sub
+	#tag EndEvent
+
+	#tag Event
+		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
+		  dim icon as Picture = nil
+		  
+		  if Valid then
+		    icon = IconValid
+		  elseif IconInvalid <> nil then
+		    icon = IconInvalid
+		  else
+		    icon = warning16
+		  end
+		  
+		  if icon <> nil then
+		    g.DrawPicture(warning16, 0, 0, 16, 16, 0, 0, icon.Width, icon.Height)
+		  end
+		  
+		  if not Valid and Text <> "" then
+		    g.ForeColor = &c000000
+		    g.TextSize = 9
+		    g.DrawString(Text, 20, g.TextHeight + 1)
+		  end
 		End Sub
 	#tag EndEvent
 
 
+	#tag Method, Flags = &h0
+		Sub Validate()
+		  Valid = RaiseEvent Validate()
+		End Sub
+	#tag EndMethod
+
+
+	#tag Hook, Flags = &h0
+		Event Validate() As Boolean
+	#tag EndHook
+
+
+	#tag Property, Flags = &h0
+		IconInvalid As Picture = nil
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		IconValid As Picture = nil
+	#tag EndProperty
+
+	#tag Property, Flags = &h21
+		Private mValid As Boolean = true
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		Text As String
+	#tag EndProperty
+
+	#tag ComputedProperty, Flags = &h0
+		#tag Getter
+			Get
+			  return mValid
+			End Get
+		#tag EndGetter
+		#tag Setter
+			Set
+			  mValid = value
+			  Me.Refresh()
+			End Set
+		#tag EndSetter
+		Valid As Boolean
+	#tag EndComputedProperty
+
+
 	#tag ViewBehavior
+		#tag ViewProperty
+			Name="AcceptFocus"
+			Visible=true
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="AcceptTabs"
+			Visible=true
+			Group="Behavior"
+			Type="Boolean"
+		#tag EndViewProperty
 		#tag ViewProperty
 			Name="AutoDeactivate"
 			Visible=true
@@ -20,24 +97,18 @@ Inherits BHPopupMenu
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Bold"
+			Name="Backdrop"
 			Visible=true
-			Group="Font"
+			Group="Appearance"
+			Type="Picture"
+			EditorType="Picture"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="DoubleBuffer"
+			Visible=true
+			Group="Behavior"
+			InitialValue="False"
 			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="DataField"
-			Visible=true
-			Group="Database Binding"
-			Type="String"
-			EditorType="DataField"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="DataSource"
-			Visible=true
-			Group="Database Binding"
-			Type="String"
-			EditorType="DataSource"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Enabled"
@@ -47,10 +118,17 @@ Inherits BHPopupMenu
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
+			Name="EraseBackground"
+			Visible=true
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
 			Name="Height"
 			Visible=true
 			Group="Position"
-			InitialValue="20"
+			InitialValue="100"
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -59,6 +137,18 @@ Inherits BHPopupMenu
 			Group="Appearance"
 			Type="String"
 			EditorType="MultiLineEditor"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IconInvalid"
+			Group="Behavior"
+			InitialValue="nil"
+			Type="Picture"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="IconValid"
+			Group="Behavior"
+			InitialValue="nil"
+			Type="Picture"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -72,29 +162,9 @@ Inherits BHPopupMenu
 			Type="String"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="InitialValue"
-			Visible=true
-			Group="Appearance"
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="Italic"
-			Visible=true
-			Group="Font"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Left"
 			Visible=true
 			Group="Position"
-			Type="Integer"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="ListIndex"
-			Visible=true
-			Group="Appearance"
-			InitialValue="0"
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -129,12 +199,6 @@ Inherits BHPopupMenu
 			EditorType="String"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="NotEmpty"
-			Visible=true
-			Group="Validation"
-			Type="Boolean"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
@@ -162,33 +226,11 @@ Inherits BHPopupMenu
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="TextFont"
+			Name="Text"
 			Visible=true
-			Group="Font"
-			InitialValue="System"
+			Group="Behavior"
 			Type="String"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TextSize"
-			Visible=true
-			Group="Font"
-			InitialValue="0"
-			Type="Single"
-		#tag EndViewProperty
-		#tag ViewProperty
-			Name="TextUnit"
-			Visible=true
-			Group="Font"
-			InitialValue="0"
-			Type="FontUnits"
-			EditorType="Enum"
-			#tag EnumValues
-				"0 - Default"
-				"1 - Pixel"
-				"2 - Point"
-				"3 - Inch"
-				"4 - Millimeter"
-			#tag EndEnumValues
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -197,9 +239,23 @@ Inherits BHPopupMenu
 			Type="Integer"
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="Underline"
+			Name="Transparent"
 			Visible=true
-			Group="Font"
+			Group="Behavior"
+			InitialValue="True"
+			Type="Boolean"
+			EditorType="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="UseFocusRing"
+			Visible=true
+			Group="Appearance"
+			InitialValue="True"
+			Type="Boolean"
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="Valid"
+			Group="Behavior"
 			Type="Boolean"
 		#tag EndViewProperty
 		#tag ViewProperty
@@ -213,7 +269,7 @@ Inherits BHPopupMenu
 			Name="Width"
 			Visible=true
 			Group="Position"
-			InitialValue="80"
+			InitialValue="100"
 			Type="Integer"
 		#tag EndViewProperty
 	#tag EndViewBehavior

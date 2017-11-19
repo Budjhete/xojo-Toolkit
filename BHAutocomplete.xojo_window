@@ -1,5 +1,5 @@
 #tag Window
-Begin BHContainerControl BHAutocomplete Implements View
+Begin BHContainerControl BHAutocomplete
    AcceptFocus     =   False
    AcceptTabs      =   True
    AutoDeactivate  =   True

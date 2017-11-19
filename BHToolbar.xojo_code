@@ -6,7 +6,7 @@ Inherits Toolbar
 		  dim item as ToolItem = Me.Find(name)
 		  
 		  if item <> nil then
-		    item.Enabled = Company.Current().AccessTo(License, Permission)
+		    item.Enabled = App.CurrentCompany().AccessTo(License, Permission)
 		  end
 		End Sub
 	#tag EndMethod
@@ -16,7 +16,7 @@ Inherits Toolbar
 		  dim item as ToolItem = Me.Find(name)
 		  
 		  if item <> nil then
-		    item.Enabled = Company.Current().LicenseTo(License)
+		    item.Enabled = App.CurrentCompany().LicenseTo(License)
 		  end
 		End Sub
 	#tag EndMethod
@@ -26,7 +26,7 @@ Inherits Toolbar
 		  dim item as ToolItem = Me.Find(name)
 		  
 		  if item <> nil then
-		    item.Enabled = Company.Current().PermissionTo(Permission)
+		    item.Enabled = App.CurrentCompany().PermissionTo(Permission)
 		  end
 		End Sub
 	#tag EndMethod
